@@ -7,4 +7,7 @@ output_dir: "docs"
 
 rmd_files:
    - index.Rmd
+   - JCOBO.Rmd
+   - chamorro.Rmd
+   - Jesu.Rmd
 
