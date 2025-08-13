@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Exploración inicial | EDA METODOS</title>
+  <title>Chapter 6 Análisis bivariante | EDA METODOS</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Exploración inicial | EDA METODOS" />
+  <meta property="og:title" content="Chapter 6 Análisis bivariante | EDA METODOS" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Exploración inicial | EDA METODOS" />
+  <meta name="twitter:title" content="Chapter 6 Análisis bivariante | EDA METODOS" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="carga-de-datos.html"/>
-<link rel="next" href="limpieza-y-optimización-de-los-datos.html"/>
+<link rel="prev" href="análisis-univariante.html"/>
+<link rel="next" href="análisis-multivariante.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -243,61 +243,92 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="exploración-inicial" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Exploración inicial<a href="exploración-inicial.html#exploración-inicial" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="impresión-general-de-los-datos" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Impresión general de los datos<a href="exploración-inicial.html#impresión-general-de-los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="exploración-inicial.html#cb27-1" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
-<pre><code>##         ID Diagnosis radius1 texture1 perimeter1  area1 smoothness1
-## 1   842302         M   17.99    10.38     122.80 1001.0     0.11840
-## 2   842517         M   20.57    17.77     132.90 1326.0     0.08474
-## 3 84300903         M   19.69    21.25     130.00 1203.0     0.10960
-## 4 84348301         M   11.42    20.38      77.58  386.1     0.14250
-## 5 84358402         M   20.29    14.34     135.10 1297.0     0.10030
-## 6   843786         M   12.45    15.70      82.57  477.1     0.12780
-##   compactness1 concavity1 concave_points1 symmetry1 fractal_dimension1
-## 1      0.27760     0.3001         0.14710    0.2419            0.07871
-## 2      0.07864     0.0869         0.07017    0.1812            0.05667
-## 3      0.15990     0.1974         0.12790    0.2069            0.05999
-## 4      0.28390     0.2414         0.10520    0.2597            0.09744
-## 5      0.13280     0.1980         0.10430    0.1809            0.05883
-## 6      0.17000     0.1578         0.08089    0.2087            0.07613</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="exploración-inicial.html#cb29-1" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    569 obs. of  12 variables:
-##  $ ID                : int  842302 842517 84300903 84348301 84358402 843786 844359 84458202 844981 84501001 ...
-##  $ Diagnosis         : chr  &quot;M&quot; &quot;M&quot; &quot;M&quot; &quot;M&quot; ...
-##  $ radius1           : num  18 20.6 19.7 11.4 20.3 ...
-##  $ texture1          : num  10.4 17.8 21.2 20.4 14.3 ...
-##  $ perimeter1        : num  122.8 132.9 130 77.6 135.1 ...
-##  $ area1             : num  1001 1326 1203 386 1297 ...
-##  $ smoothness1       : num  0.1184 0.0847 0.1096 0.1425 0.1003 ...
-##  $ compactness1      : num  0.2776 0.0786 0.1599 0.2839 0.1328 ...
-##  $ concavity1        : num  0.3001 0.0869 0.1974 0.2414 0.198 ...
-##  $ concave_points1   : num  0.1471 0.0702 0.1279 0.1052 0.1043 ...
-##  $ symmetry1         : num  0.242 0.181 0.207 0.26 0.181 ...
-##  $ fractal_dimension1: num  0.0787 0.0567 0.06 0.0974 0.0588 ...</code></pre>
+<div id="análisis-bivariante" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Análisis bivariante<a href="análisis-bivariante.html#análisis-bivariante" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="variable-numérica-vs.-categórica" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Variable numérica vs. categórica<a href="análisis-bivariante.html#variable-numérica-vs.-categórica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="análisis-bivariante.html#cb106-1" tabindex="-1"></a><span class="co"># Boxplot</span></span>
+<span id="cb106-2"><a href="análisis-bivariante.html#cb106-2" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Diagnosis, <span class="at">y =</span> radius1)) <span class="sc">+</span></span>
+<span id="cb106-3"><a href="análisis-bivariante.html#cb106-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;lightgreen&quot;</span>) <span class="sc">+</span></span>
+<span id="cb106-4"><a href="análisis-bivariante.html#cb106-4" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb106-5"><a href="análisis-bivariante.html#cb106-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;radius1 según Diagnóstico&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Diagnóstico&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Radius1&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/analisis_bivariante_num_cat-1.png" width="672" /></p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="análisis-bivariante.html#cb107-1" tabindex="-1"></a><span class="co"># Violin plot</span></span>
+<span id="cb107-2"><a href="análisis-bivariante.html#cb107-2" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Diagnosis, <span class="at">y =</span> radius1)) <span class="sc">+</span></span>
+<span id="cb107-3"><a href="análisis-bivariante.html#cb107-3" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">fill =</span> <span class="st">&quot;violet&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb107-4"><a href="análisis-bivariante.html#cb107-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">outlier.size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb107-5"><a href="análisis-bivariante.html#cb107-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb107-6"><a href="análisis-bivariante.html#cb107-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de radius1 por Diagnóstico&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Diagnóstico&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Radius1&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>El gráfico compara el radio de los tumores B (benignos) y M (malignos). Se aprecia que, aunque la mayoría de los tumores son de tipo B, los de tipo M se concentran en valores significativamente más altos, incluso con datos extremos más elevados.</p>
+<p>Los tumores tipo B presentan una distribución más compacta, mientras que los tipo M muestran mayor variación en sus radios. Los primeros tienen un comportamiento más homogéneo, mientras que los segundos presentan mayor dispersión.</p>
+<p>Los puntos negros sobre las cajas (que representan valores atípicos) destacan la presencia de tumores excepcionalmente grandes, principalmente en los tipo M.</p>
+<p>En síntesis, los resultados sugieren que:</p>
+<ul>
+<li>Los tumores malignos (tipo M) tienden a tener radios mayores y mayor variabilidad</li>
+<li>Los benignos (tipo B) presentan un comportamiento más compacto y radios menores.</li>
+</ul>
 </div>
-<div id="inspección-de-la-estructura" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Inspección de la estructura<a href="exploración-inicial.html#inspección-de-la-estructura" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="exploración-inicial.html#cb31-1" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    569 obs. of  12 variables:
-##  $ ID                : int  842302 842517 84300903 84348301 84358402 843786 844359 84458202 844981 84501001 ...
-##  $ Diagnosis         : chr  &quot;M&quot; &quot;M&quot; &quot;M&quot; &quot;M&quot; ...
-##  $ radius1           : num  18 20.6 19.7 11.4 20.3 ...
-##  $ texture1          : num  10.4 17.8 21.2 20.4 14.3 ...
-##  $ perimeter1        : num  122.8 132.9 130 77.6 135.1 ...
-##  $ area1             : num  1001 1326 1203 386 1297 ...
-##  $ smoothness1       : num  0.1184 0.0847 0.1096 0.1425 0.1003 ...
-##  $ compactness1      : num  0.2776 0.0786 0.1599 0.2839 0.1328 ...
-##  $ concavity1        : num  0.3001 0.0869 0.1974 0.2414 0.198 ...
-##  $ concave_points1   : num  0.1471 0.0702 0.1279 0.1052 0.1043 ...
-##  $ symmetry1         : num  0.242 0.181 0.207 0.26 0.181 ...
-##  $ fractal_dimension1: num  0.0787 0.0567 0.06 0.0974 0.0588 ...</code></pre>
+<div id="variable-numérica-vs.-numérica" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Variable numérica vs. numérica<a href="análisis-bivariante.html#variable-numérica-vs.-numérica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="análisis-bivariante.html#cb108-1" tabindex="-1"></a><span class="co"># Scatter plot básico</span></span>
+<span id="cb108-2"><a href="análisis-bivariante.html#cb108-2" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> radius1, <span class="at">y =</span> area1)) <span class="sc">+</span></span>
+<span id="cb108-3"><a href="análisis-bivariante.html#cb108-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb108-4"><a href="análisis-bivariante.html#cb108-4" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb108-5"><a href="análisis-bivariante.html#cb108-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Relación entre radius1 y area1&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Radius1&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Area1&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/analisis_bivariante_num_num-1.png" width="672" /></p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="análisis-bivariante.html#cb109-1" tabindex="-1"></a><span class="co"># Scatter plot con regresión</span></span>
+<span id="cb109-2"><a href="análisis-bivariante.html#cb109-2" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> radius1, <span class="at">y =</span> area1)) <span class="sc">+</span></span>
+<span id="cb109-3"><a href="análisis-bivariante.html#cb109-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb109-4"><a href="análisis-bivariante.html#cb109-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb109-5"><a href="análisis-bivariante.html#cb109-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb109-6"><a href="análisis-bivariante.html#cb109-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Regresión radius1 vs area1&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Radius1&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Area1&quot;</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="análisis-bivariante.html#cb111-1" tabindex="-1"></a><span class="co"># Correlación</span></span>
+<span id="cb111-2"><a href="análisis-bivariante.html#cb111-2" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Correlación entre radius1 y area1:&quot;</span>, <span class="fu">cor</span>(df<span class="sc">$</span>radius1, df<span class="sc">$</span>area1), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Correlación entre radius1 y area1: 0.9873572</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="análisis-bivariante.html#cb113-1" tabindex="-1"></a><span class="co"># Mapa de correlaciones</span></span>
+<span id="cb113-2"><a href="análisis-bivariante.html#cb113-2" tabindex="-1"></a>numeric_vars <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">where</span>(is.numeric), <span class="sc">-</span>ID)</span>
+<span id="cb113-3"><a href="análisis-bivariante.html#cb113-3" tabindex="-1"></a><span class="fu">ggcorr</span>(numeric_vars, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">label_round =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb113-4"><a href="análisis-bivariante.html#cb113-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Matriz de Correlaciones&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Existe una relación evidente entre el radio1 y el área1, específicamente una correlación positiva: cuando el radio aumenta, el área también lo hace.</p>
+<p>La matriz de correlación muestra que hay pocas correlaciones negativas (ninguna significativa). En general, las variables presentan correlaciones positivas, evidenciado por el predominio del color rojo que indica valores cercanos a 1. Esto tiene sentido, ya que la mayoría están relacionadas con el tamaño.</p>
+<p>Como excepción, la variable textura muestra valores cercanos a 0, indicando que no tiene una correlación significativa con las demás variables.</p>
 </div>
-<div id="dimensión-de-los-datos" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> Dimensión de los datos<a href="exploración-inicial.html#dimensión-de-los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="exploración-inicial.html#cb33-1" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code></pre></div>
-<pre><code>## [1] 569  12</code></pre>
+<div id="variable-categórica-vs.-categórica" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Variable categórica vs. categórica<a href="análisis-bivariante.html#variable-categórica-vs.-categórica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="análisis-bivariante.html#cb114-1" tabindex="-1"></a><span class="co"># Tabla cruzada de diagnóstico con grupos de radius1</span></span>
+<span id="cb114-2"><a href="análisis-bivariante.html#cb114-2" tabindex="-1"></a>radius_groups <span class="ot">&lt;-</span> <span class="fu">cut</span>(df<span class="sc">$</span>radius1, <span class="at">breaks =</span> <span class="dv">3</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Bajo&quot;</span>, <span class="st">&quot;Medio&quot;</span>, <span class="st">&quot;Alto&quot;</span>))</span>
+<span id="cb114-3"><a href="análisis-bivariante.html#cb114-3" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(df<span class="sc">$</span>Diagnosis, radius_groups)</span>
+<span id="cb114-4"><a href="análisis-bivariante.html#cb114-4" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Tabla cruzada Diagnóstico vs Grupos de Radius1:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Tabla cruzada Diagnóstico vs Grupos de Radius1:</code></pre>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="análisis-bivariante.html#cb116-1" tabindex="-1"></a><span class="fu">print</span>(tab)</span></code></pre></div>
+<pre><code>##    radius_groups
+##     Bajo Medio Alto
+##   B  306    51    0
+##   M   32   158   22</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="análisis-bivariante.html#cb118-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Proporciones:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Proporciones:</code></pre>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="análisis-bivariante.html#cb120-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">prop.table</span>(tab))</span></code></pre></div>
+<pre><code>##    radius_groups
+##           Bajo      Medio       Alto
+##   B 0.53778559 0.08963093 0.00000000
+##   M 0.05623902 0.27768014 0.03866432</code></pre>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="análisis-bivariante.html#cb122-1" tabindex="-1"></a><span class="co"># Heatmap</span></span>
+<span id="cb122-2"><a href="análisis-bivariante.html#cb122-2" tabindex="-1"></a>tab_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(tab)</span>
+<span id="cb122-3"><a href="análisis-bivariante.html#cb122-3" tabindex="-1"></a><span class="fu">colnames</span>(tab_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Diagnosis&quot;</span>, <span class="st">&quot;RadiusGroup&quot;</span>, <span class="st">&quot;Freq&quot;</span>)</span>
+<span id="cb122-4"><a href="análisis-bivariante.html#cb122-4" tabindex="-1"></a></span>
+<span id="cb122-5"><a href="análisis-bivariante.html#cb122-5" tabindex="-1"></a><span class="fu">ggplot</span>(tab_df, <span class="fu">aes</span>(<span class="at">x =</span> RadiusGroup, <span class="at">y =</span> Diagnosis, <span class="at">fill =</span> Freq)) <span class="sc">+</span></span>
+<span id="cb122-6"><a href="análisis-bivariante.html#cb122-6" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb122-7"><a href="análisis-bivariante.html#cb122-7" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;white&quot;</span>, <span class="at">high =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb122-8"><a href="análisis-bivariante.html#cb122-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb122-9"><a href="análisis-bivariante.html#cb122-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Heatmap Diagnóstico vs Grupo de Radius1&quot;</span>, </span>
+<span id="cb122-10"><a href="análisis-bivariante.html#cb122-10" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Grupo de Radius1&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Diagnóstico&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/analisis_bivariante_cat_cat-1.png" width="672" /></p>
+<p>El heatmap muestra la relación entre el diagnóstico de tumores benignos (B) y malignos (M) y su clasificación en grupos de Radius1 (Bajo, Medio y Alto), evidenciando que la mayor concentración de casos corresponde a tumores benignos con radios bajos, mientras que los malignos se presentan con mayor frecuencia en radios medios y en menor proporción en radios bajos; por otro lado, los tumores con radios altos son poco comunes en ambos diagnósticos, lo que sugiere que los radios pequeños predominan en los tumores benignos y que los malignos tienden a concentrarse más en radios intermedios que en extremos.</p>
 </div>
 </div>
             </section>
@@ -305,8 +336,8 @@ div.csl-indent {
           </div>
         </div>
       </div>
-<a href="carga-de-datos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="limpieza-y-optimización-de-los-datos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="análisis-univariante.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="análisis-multivariante.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

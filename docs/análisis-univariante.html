@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Exploración inicial | EDA METODOS</title>
+  <title>Chapter 5 Análisis univariante | EDA METODOS</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Exploración inicial | EDA METODOS" />
+  <meta property="og:title" content="Chapter 5 Análisis univariante | EDA METODOS" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Exploración inicial | EDA METODOS" />
+  <meta name="twitter:title" content="Chapter 5 Análisis univariante | EDA METODOS" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="carga-de-datos.html"/>
-<link rel="next" href="limpieza-y-optimización-de-los-datos.html"/>
+<link rel="prev" href="limpieza-y-optimización-de-los-datos.html"/>
+<link rel="next" href="análisis-bivariante.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -243,61 +243,86 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="exploración-inicial" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Exploración inicial<a href="exploración-inicial.html#exploración-inicial" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="impresión-general-de-los-datos" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Impresión general de los datos<a href="exploración-inicial.html#impresión-general-de-los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="exploración-inicial.html#cb27-1" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
-<pre><code>##         ID Diagnosis radius1 texture1 perimeter1  area1 smoothness1
-## 1   842302         M   17.99    10.38     122.80 1001.0     0.11840
-## 2   842517         M   20.57    17.77     132.90 1326.0     0.08474
-## 3 84300903         M   19.69    21.25     130.00 1203.0     0.10960
-## 4 84348301         M   11.42    20.38      77.58  386.1     0.14250
-## 5 84358402         M   20.29    14.34     135.10 1297.0     0.10030
-## 6   843786         M   12.45    15.70      82.57  477.1     0.12780
-##   compactness1 concavity1 concave_points1 symmetry1 fractal_dimension1
-## 1      0.27760     0.3001         0.14710    0.2419            0.07871
-## 2      0.07864     0.0869         0.07017    0.1812            0.05667
-## 3      0.15990     0.1974         0.12790    0.2069            0.05999
-## 4      0.28390     0.2414         0.10520    0.2597            0.09744
-## 5      0.13280     0.1980         0.10430    0.1809            0.05883
-## 6      0.17000     0.1578         0.08089    0.2087            0.07613</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="exploración-inicial.html#cb29-1" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    569 obs. of  12 variables:
-##  $ ID                : int  842302 842517 84300903 84348301 84358402 843786 844359 84458202 844981 84501001 ...
-##  $ Diagnosis         : chr  &quot;M&quot; &quot;M&quot; &quot;M&quot; &quot;M&quot; ...
-##  $ radius1           : num  18 20.6 19.7 11.4 20.3 ...
-##  $ texture1          : num  10.4 17.8 21.2 20.4 14.3 ...
-##  $ perimeter1        : num  122.8 132.9 130 77.6 135.1 ...
-##  $ area1             : num  1001 1326 1203 386 1297 ...
-##  $ smoothness1       : num  0.1184 0.0847 0.1096 0.1425 0.1003 ...
-##  $ compactness1      : num  0.2776 0.0786 0.1599 0.2839 0.1328 ...
-##  $ concavity1        : num  0.3001 0.0869 0.1974 0.2414 0.198 ...
-##  $ concave_points1   : num  0.1471 0.0702 0.1279 0.1052 0.1043 ...
-##  $ symmetry1         : num  0.242 0.181 0.207 0.26 0.181 ...
-##  $ fractal_dimension1: num  0.0787 0.0567 0.06 0.0974 0.0588 ...</code></pre>
+<div id="análisis-univariante" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Análisis univariante<a href="análisis-univariante.html#análisis-univariante" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="variables-numéricas" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Variables numéricas<a href="análisis-univariante.html#variables-numéricas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="análisis-univariante.html#cb84-1" tabindex="-1"></a><span class="co"># Análisis de radius1</span></span>
+<span id="cb84-2"><a href="análisis-univariante.html#cb84-2" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Estadísticas descriptivas de radius1:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Estadísticas descriptivas de radius1:</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="análisis-univariante.html#cb86-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Media:&quot;</span>, <span class="fu">mean</span>(df<span class="sc">$</span>radius1), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Media: 14.12729</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="análisis-univariante.html#cb88-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Mediana:&quot;</span>, <span class="fu">median</span>(df<span class="sc">$</span>radius1), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Mediana: 13.37</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="análisis-univariante.html#cb90-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Desviación estándar:&quot;</span>, <span class="fu">sd</span>(df<span class="sc">$</span>radius1), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Desviación estándar: 3.524049</code></pre>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="análisis-univariante.html#cb92-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Rango intercuartílico:&quot;</span>, <span class="fu">IQR</span>(df<span class="sc">$</span>radius1), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Rango intercuartílico: 4.08</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="análisis-univariante.html#cb94-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Rango:&quot;</span>, <span class="fu">paste</span>(<span class="fu">range</span>(df<span class="sc">$</span>radius1), <span class="at">collapse =</span> <span class="st">&quot; - &quot;</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Rango: 6.981 - 28.11</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="análisis-univariante.html#cb96-1" tabindex="-1"></a><span class="co"># Histograma básico</span></span>
+<span id="cb96-2"><a href="análisis-univariante.html#cb96-2" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> radius1)) <span class="sc">+</span></span>
+<span id="cb96-3"><a href="análisis-univariante.html#cb96-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;skyblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb96-4"><a href="análisis-univariante.html#cb96-4" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb96-5"><a href="análisis-univariante.html#cb96-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Histograma de radius1&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Radius1&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/analisis_univariante_numericas-1.png" width="672" /></p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="análisis-univariante.html#cb97-1" tabindex="-1"></a><span class="co"># Histograma con densidad</span></span>
+<span id="cb97-2"><a href="análisis-univariante.html#cb97-2" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> radius1, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span></span>
+<span id="cb97-3"><a href="análisis-univariante.html#cb97-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb97-4"><a href="análisis-univariante.html#cb97-4" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb97-5"><a href="análisis-univariante.html#cb97-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb97-6"><a href="análisis-univariante.html#cb97-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Histograma + Densidad de radius1&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Radius1&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Densidad&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="análisis-univariante.html#cb99-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb99-2"><a href="análisis-univariante.html#cb99-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> radius1)) <span class="sc">+</span></span>
+<span id="cb99-3"><a href="análisis-univariante.html#cb99-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#a6cee3&quot;</span>, <span class="at">color =</span> <span class="st">&quot;#1f78b4&quot;</span>, <span class="at">outlier.color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb99-4"><a href="análisis-univariante.html#cb99-4" tabindex="-1"></a>  <span class="fu">stat_summary</span>(</span>
+<span id="cb99-5"><a href="análisis-univariante.html#cb99-5" tabindex="-1"></a>    <span class="at">fun =</span> mean,</span>
+<span id="cb99-6"><a href="análisis-univariante.html#cb99-6" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>,</span>
+<span id="cb99-7"><a href="análisis-univariante.html#cb99-7" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">20</span>,</span>
+<span id="cb99-8"><a href="análisis-univariante.html#cb99-8" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb99-9"><a href="análisis-univariante.html#cb99-9" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;black&quot;</span></span>
+<span id="cb99-10"><a href="análisis-univariante.html#cb99-10" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb99-11"><a href="análisis-univariante.html#cb99-11" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb99-12"><a href="análisis-univariante.html#cb99-12" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Diagrama de cajas y bigotes de Radio1&quot;</span>,</span>
+<span id="cb99-13"><a href="análisis-univariante.html#cb99-13" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb99-14"><a href="análisis-univariante.html#cb99-14" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;RADIO (MM)&quot;</span></span>
+<span id="cb99-15"><a href="análisis-univariante.html#cb99-15" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb99-16"><a href="análisis-univariante.html#cb99-16" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Se puede observar cierta asimetría en los datos de la distribución radius1. Además, se aprecia un sesgo hacia la derecha y una cantidad significativa de valores atípicos altos, esto indica que la mayoría de los radios tienen un tamaño estándar, pero existen algunos valores excepcionalmente grandes. Estos casos atípicos influyen significativamente en la media y en la desviación estándar de la distribución.</p>
 </div>
-<div id="inspección-de-la-estructura" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Inspección de la estructura<a href="exploración-inicial.html#inspección-de-la-estructura" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="exploración-inicial.html#cb31-1" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    569 obs. of  12 variables:
-##  $ ID                : int  842302 842517 84300903 84348301 84358402 843786 844359 84458202 844981 84501001 ...
-##  $ Diagnosis         : chr  &quot;M&quot; &quot;M&quot; &quot;M&quot; &quot;M&quot; ...
-##  $ radius1           : num  18 20.6 19.7 11.4 20.3 ...
-##  $ texture1          : num  10.4 17.8 21.2 20.4 14.3 ...
-##  $ perimeter1        : num  122.8 132.9 130 77.6 135.1 ...
-##  $ area1             : num  1001 1326 1203 386 1297 ...
-##  $ smoothness1       : num  0.1184 0.0847 0.1096 0.1425 0.1003 ...
-##  $ compactness1      : num  0.2776 0.0786 0.1599 0.2839 0.1328 ...
-##  $ concavity1        : num  0.3001 0.0869 0.1974 0.2414 0.198 ...
-##  $ concave_points1   : num  0.1471 0.0702 0.1279 0.1052 0.1043 ...
-##  $ symmetry1         : num  0.242 0.181 0.207 0.26 0.181 ...
-##  $ fractal_dimension1: num  0.0787 0.0567 0.06 0.0974 0.0588 ...</code></pre>
-</div>
-<div id="dimensión-de-los-datos" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> Dimensión de los datos<a href="exploración-inicial.html#dimensión-de-los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="exploración-inicial.html#cb33-1" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code></pre></div>
-<pre><code>## [1] 569  12</code></pre>
+<div id="variables-categóricas" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Variables categóricas<a href="análisis-univariante.html#variables-categóricas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="análisis-univariante.html#cb100-1" tabindex="-1"></a><span class="co"># Gráfico de barras básico</span></span>
+<span id="cb100-2"><a href="análisis-univariante.html#cb100-2" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Diagnosis)) <span class="sc">+</span></span>
+<span id="cb100-3"><a href="análisis-univariante.html#cb100-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;orange&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb100-4"><a href="análisis-univariante.html#cb100-4" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb100-5"><a href="análisis-univariante.html#cb100-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Diagnósticos&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Diagnóstico&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/analisis_univariante_categoricas-1.png" width="672" /></p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="análisis-univariante.html#cb101-1" tabindex="-1"></a><span class="co"># Gráfico de barras con porcentajes</span></span>
+<span id="cb101-2"><a href="análisis-univariante.html#cb101-2" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb101-3"><a href="análisis-univariante.html#cb101-3" tabindex="-1"></a>  <span class="fu">count</span>(Diagnosis) <span class="sc">%&gt;%</span></span>
+<span id="cb101-4"><a href="análisis-univariante.html#cb101-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pct =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb101-5"><a href="análisis-univariante.html#cb101-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Diagnosis, <span class="at">y =</span> pct)) <span class="sc">+</span></span>
+<span id="cb101-6"><a href="análisis-univariante.html#cb101-6" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb101-7"><a href="análisis-univariante.html#cb101-7" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(pct,<span class="dv">1</span>), <span class="st">&quot;%&quot;</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb101-8"><a href="análisis-univariante.html#cb101-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb101-9"><a href="análisis-univariante.html#cb101-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Porcentaje por Diagnóstico&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Diagnóstico&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Porcentaje&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="análisis-univariante.html#cb102-1" tabindex="-1"></a><span class="co"># Frecuencias relativas</span></span>
+<span id="cb102-2"><a href="análisis-univariante.html#cb102-2" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Frecuencias relativas de diagnósticos:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Frecuencias relativas de diagnósticos:</code></pre>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="análisis-univariante.html#cb104-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">prop.table</span>(<span class="fu">table</span>(df<span class="sc">$</span>Diagnosis)))</span></code></pre></div>
+<pre><code>## 
+##         B         M 
+## 0.6274165 0.3725835</code></pre>
+<p>La mayoría de los pacientes (62.7%) presentan tumores de tipo B (benignos), mientras que el 37.3% corresponde al tipo M (malignos).</p>
 </div>
 </div>
             </section>
@@ -305,8 +330,8 @@ div.csl-indent {
           </div>
         </div>
       </div>
-<a href="carga-de-datos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="limpieza-y-optimización-de-los-datos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="limpieza-y-optimización-de-los-datos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="análisis-bivariante.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

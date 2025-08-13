@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Exploración inicial | EDA METODOS</title>
+  <title>Chapter 8 Conclusiones | EDA METODOS</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Exploración inicial | EDA METODOS" />
+  <meta property="og:title" content="Chapter 8 Conclusiones | EDA METODOS" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Exploración inicial | EDA METODOS" />
+  <meta name="twitter:title" content="Chapter 8 Conclusiones | EDA METODOS" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="carga-de-datos.html"/>
-<link rel="next" href="limpieza-y-optimización-de-los-datos.html"/>
+<link rel="prev" href="análisis-multivariante.html"/>
+<link rel="next" href="posibles-formas-de-proceder-con-la-solución-de-la-problemática.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -243,61 +243,33 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="exploración-inicial" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Exploración inicial<a href="exploración-inicial.html#exploración-inicial" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="impresión-general-de-los-datos" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Impresión general de los datos<a href="exploración-inicial.html#impresión-general-de-los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="exploración-inicial.html#cb27-1" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
-<pre><code>##         ID Diagnosis radius1 texture1 perimeter1  area1 smoothness1
-## 1   842302         M   17.99    10.38     122.80 1001.0     0.11840
-## 2   842517         M   20.57    17.77     132.90 1326.0     0.08474
-## 3 84300903         M   19.69    21.25     130.00 1203.0     0.10960
-## 4 84348301         M   11.42    20.38      77.58  386.1     0.14250
-## 5 84358402         M   20.29    14.34     135.10 1297.0     0.10030
-## 6   843786         M   12.45    15.70      82.57  477.1     0.12780
-##   compactness1 concavity1 concave_points1 symmetry1 fractal_dimension1
-## 1      0.27760     0.3001         0.14710    0.2419            0.07871
-## 2      0.07864     0.0869         0.07017    0.1812            0.05667
-## 3      0.15990     0.1974         0.12790    0.2069            0.05999
-## 4      0.28390     0.2414         0.10520    0.2597            0.09744
-## 5      0.13280     0.1980         0.10430    0.1809            0.05883
-## 6      0.17000     0.1578         0.08089    0.2087            0.07613</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="exploración-inicial.html#cb29-1" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    569 obs. of  12 variables:
-##  $ ID                : int  842302 842517 84300903 84348301 84358402 843786 844359 84458202 844981 84501001 ...
-##  $ Diagnosis         : chr  &quot;M&quot; &quot;M&quot; &quot;M&quot; &quot;M&quot; ...
-##  $ radius1           : num  18 20.6 19.7 11.4 20.3 ...
-##  $ texture1          : num  10.4 17.8 21.2 20.4 14.3 ...
-##  $ perimeter1        : num  122.8 132.9 130 77.6 135.1 ...
-##  $ area1             : num  1001 1326 1203 386 1297 ...
-##  $ smoothness1       : num  0.1184 0.0847 0.1096 0.1425 0.1003 ...
-##  $ compactness1      : num  0.2776 0.0786 0.1599 0.2839 0.1328 ...
-##  $ concavity1        : num  0.3001 0.0869 0.1974 0.2414 0.198 ...
-##  $ concave_points1   : num  0.1471 0.0702 0.1279 0.1052 0.1043 ...
-##  $ symmetry1         : num  0.242 0.181 0.207 0.26 0.181 ...
-##  $ fractal_dimension1: num  0.0787 0.0567 0.06 0.0974 0.0588 ...</code></pre>
+<div id="conclusiones" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Conclusiones<a href="conclusiones.html#conclusiones" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="conclusiones-preliminares" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Conclusiones preliminares:<a href="conclusiones.html#conclusiones-preliminares" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>El dataset contiene 569 observaciones y 12 variables (ID, Diagnosis y 10 predictoras numéricas).</li>
+<li>Las variables muestran diferentes patrones de correlación que podrían ser útiles para modelos predictivos.</li>
+<li>No se encontraron valores faltantes en el dataset.</li>
+<li>Se identificaron valores atípicos en varias variables numéricas.</li>
+</ol>
 </div>
-<div id="inspección-de-la-estructura" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Inspección de la estructura<a href="exploración-inicial.html#inspección-de-la-estructura" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="exploración-inicial.html#cb31-1" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    569 obs. of  12 variables:
-##  $ ID                : int  842302 842517 84300903 84348301 84358402 843786 844359 84458202 844981 84501001 ...
-##  $ Diagnosis         : chr  &quot;M&quot; &quot;M&quot; &quot;M&quot; &quot;M&quot; ...
-##  $ radius1           : num  18 20.6 19.7 11.4 20.3 ...
-##  $ texture1          : num  10.4 17.8 21.2 20.4 14.3 ...
-##  $ perimeter1        : num  122.8 132.9 130 77.6 135.1 ...
-##  $ area1             : num  1001 1326 1203 386 1297 ...
-##  $ smoothness1       : num  0.1184 0.0847 0.1096 0.1425 0.1003 ...
-##  $ compactness1      : num  0.2776 0.0786 0.1599 0.2839 0.1328 ...
-##  $ concavity1        : num  0.3001 0.0869 0.1974 0.2414 0.198 ...
-##  $ concave_points1   : num  0.1471 0.0702 0.1279 0.1052 0.1043 ...
-##  $ symmetry1         : num  0.242 0.181 0.207 0.26 0.181 ...
-##  $ fractal_dimension1: num  0.0787 0.0567 0.06 0.0974 0.0588 ...</code></pre>
+<div id="conclusiones-post-análisis" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Conclusiones post análisis<a href="conclusiones.html#conclusiones-post-análisis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El análisis revela que la mayoría de los pacientes presentan tumores benignos (62.7%), mientras que el 37.3% son malignos, observándose que los primeros predominan en radios bajos y tienen una distribución más compacta, mientras que los malignos tienden a concentrarse en radios medios, con mayor variabilidad y presencia de valores atípicos altos. Las distribuciones de radio, textura y perímetro muestran concentraciones centrales claras (14 mm, 18 mm y 90 mm, respectivamente) pero con casos excepcionales de gran tamaño, especialmente en radio y perímetro. Existe una correlación casi perfecta entre radio y perímetro (r ≈ 0.998) y correlaciones moderadas de la textura con ambas variables, mientras que la matriz de correlación evidencia en general relaciones positivas entre las variables asociadas al tamaño, siendo la textura la menos relacionada. Estos hallazgos sugieren que el tamaño del tumor, especialmente medido por radio y perímetro, es un factor clave de diferenciación entre tipos benignos y malignos, y que aunque la textura aporta información adicional, su influencia es menos marcada.</p>
 </div>
-<div id="dimensión-de-los-datos" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> Dimensión de los datos<a href="exploración-inicial.html#dimensión-de-los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="exploración-inicial.html#cb33-1" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code></pre></div>
-<pre><code>## [1] 569  12</code></pre>
+<div id="próximos-pasos-recomendados" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Próximos pasos recomendados:<a href="conclusiones.html#próximos-pasos-recomendados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Ingeniería de características</li>
+<li>Selección de variables más relevantes<br />
+</li>
+<li>Implementación de modelos de Machine Learning</li>
+<li>Validación cruzada y evaluación de rendimiento</li>
+<li>Interpretación de resultados clínicos</li>
+<li>Pruebas de normalidad: Shapiro–Wilk, Kolmogorov–Smirnov, Anderson–Darling</li>
+<li>Visualización de normalidad: histogramas, Q–Q plots, densidades</li>
+</ul>
 </div>
 </div>
             </section>
@@ -305,8 +277,8 @@ div.csl-indent {
           </div>
         </div>
       </div>
-<a href="carga-de-datos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="limpieza-y-optimización-de-los-datos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="análisis-multivariante.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="posibles-formas-de-proceder-con-la-solución-de-la-problemática.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

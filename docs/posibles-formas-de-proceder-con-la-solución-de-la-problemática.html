@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Exploración inicial | EDA METODOS</title>
+  <title>Chapter 9 Posibles formas de proceder con la solución de la problemática | EDA METODOS</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Exploración inicial | EDA METODOS" />
+  <meta property="og:title" content="Chapter 9 Posibles formas de proceder con la solución de la problemática | EDA METODOS" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Exploración inicial | EDA METODOS" />
+  <meta name="twitter:title" content="Chapter 9 Posibles formas de proceder con la solución de la problemática | EDA METODOS" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="carga-de-datos.html"/>
-<link rel="next" href="limpieza-y-optimización-de-los-datos.html"/>
+<link rel="prev" href="conclusiones.html"/>
+<link rel="next" href="presentacion-del-problema-1.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -243,61 +243,47 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="exploración-inicial" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Exploración inicial<a href="exploración-inicial.html#exploración-inicial" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="impresión-general-de-los-datos" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Impresión general de los datos<a href="exploración-inicial.html#impresión-general-de-los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="exploración-inicial.html#cb27-1" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
-<pre><code>##         ID Diagnosis radius1 texture1 perimeter1  area1 smoothness1
-## 1   842302         M   17.99    10.38     122.80 1001.0     0.11840
-## 2   842517         M   20.57    17.77     132.90 1326.0     0.08474
-## 3 84300903         M   19.69    21.25     130.00 1203.0     0.10960
-## 4 84348301         M   11.42    20.38      77.58  386.1     0.14250
-## 5 84358402         M   20.29    14.34     135.10 1297.0     0.10030
-## 6   843786         M   12.45    15.70      82.57  477.1     0.12780
-##   compactness1 concavity1 concave_points1 symmetry1 fractal_dimension1
-## 1      0.27760     0.3001         0.14710    0.2419            0.07871
-## 2      0.07864     0.0869         0.07017    0.1812            0.05667
-## 3      0.15990     0.1974         0.12790    0.2069            0.05999
-## 4      0.28390     0.2414         0.10520    0.2597            0.09744
-## 5      0.13280     0.1980         0.10430    0.1809            0.05883
-## 6      0.17000     0.1578         0.08089    0.2087            0.07613</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="exploración-inicial.html#cb29-1" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    569 obs. of  12 variables:
-##  $ ID                : int  842302 842517 84300903 84348301 84358402 843786 844359 84458202 844981 84501001 ...
-##  $ Diagnosis         : chr  &quot;M&quot; &quot;M&quot; &quot;M&quot; &quot;M&quot; ...
-##  $ radius1           : num  18 20.6 19.7 11.4 20.3 ...
-##  $ texture1          : num  10.4 17.8 21.2 20.4 14.3 ...
-##  $ perimeter1        : num  122.8 132.9 130 77.6 135.1 ...
-##  $ area1             : num  1001 1326 1203 386 1297 ...
-##  $ smoothness1       : num  0.1184 0.0847 0.1096 0.1425 0.1003 ...
-##  $ compactness1      : num  0.2776 0.0786 0.1599 0.2839 0.1328 ...
-##  $ concavity1        : num  0.3001 0.0869 0.1974 0.2414 0.198 ...
-##  $ concave_points1   : num  0.1471 0.0702 0.1279 0.1052 0.1043 ...
-##  $ symmetry1         : num  0.242 0.181 0.207 0.26 0.181 ...
-##  $ fractal_dimension1: num  0.0787 0.0567 0.06 0.0974 0.0588 ...</code></pre>
+<div id="posibles-formas-de-proceder-con-la-solución-de-la-problemática" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Posibles formas de proceder con la solución de la problemática<a href="posibles-formas-de-proceder-con-la-solución-de-la-problemática.html#posibles-formas-de-proceder-con-la-solución-de-la-problemática" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Basándose en los resultados del análisis exploratorio de datos, se proponen las siguientes estrategias para abordar la problemática del diagnóstico de cáncer de mama:</p>
+<div id="preparación-de-datos-para-modelado" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> 1. Preparación de datos para modelado<a href="posibles-formas-de-proceder-con-la-solución-de-la-problemática.html#preparación-de-datos-para-modelado" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><strong>Normalización/Estandarización</strong>: Aplicar técnicas de escalado a las variables numéricas para homogeneizar sus rangos</li>
+<li><strong>Ingeniería de características</strong>: Crear nuevas variables combinando las existentes (por ejemplo, ratios entre área y perímetro)</li>
+<li><strong>Selección de características</strong>: Utilizar técnicas como PCA o selección basada en correlación para reducir redundancia</li>
+</ul>
 </div>
-<div id="inspección-de-la-estructura" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Inspección de la estructura<a href="exploración-inicial.html#inspección-de-la-estructura" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="exploración-inicial.html#cb31-1" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    569 obs. of  12 variables:
-##  $ ID                : int  842302 842517 84300903 84348301 84358402 843786 844359 84458202 844981 84501001 ...
-##  $ Diagnosis         : chr  &quot;M&quot; &quot;M&quot; &quot;M&quot; &quot;M&quot; ...
-##  $ radius1           : num  18 20.6 19.7 11.4 20.3 ...
-##  $ texture1          : num  10.4 17.8 21.2 20.4 14.3 ...
-##  $ perimeter1        : num  122.8 132.9 130 77.6 135.1 ...
-##  $ area1             : num  1001 1326 1203 386 1297 ...
-##  $ smoothness1       : num  0.1184 0.0847 0.1096 0.1425 0.1003 ...
-##  $ compactness1      : num  0.2776 0.0786 0.1599 0.2839 0.1328 ...
-##  $ concavity1        : num  0.3001 0.0869 0.1974 0.2414 0.198 ...
-##  $ concave_points1   : num  0.1471 0.0702 0.1279 0.1052 0.1043 ...
-##  $ symmetry1         : num  0.242 0.181 0.207 0.26 0.181 ...
-##  $ fractal_dimension1: num  0.0787 0.0567 0.06 0.0974 0.0588 ...</code></pre>
+<div id="desarrollo-de-modelos-predictivos" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> 2. Desarrollo de modelos predictivos<a href="posibles-formas-de-proceder-con-la-solución-de-la-problemática.html#desarrollo-de-modelos-predictivos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><strong>Modelos de clasificación supervisada</strong>:
+<ul>
+<li>Regresión Logística</li>
+<li>Random Forest</li>
+<li>Support Vector Machine (SVM)</li>
+<li>Redes Neuronales</li>
+<li>XGBoost</li>
+</ul></li>
+</ul>
 </div>
-<div id="dimensión-de-los-datos" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> Dimensión de los datos<a href="exploración-inicial.html#dimensión-de-los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="exploración-inicial.html#cb33-1" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code></pre></div>
-<pre><code>## [1] 569  12</code></pre>
+<div id="validación-y-evaluación" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> 3. Validación y evaluación<a href="posibles-formas-de-proceder-con-la-solución-de-la-problemática.html#validación-y-evaluación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><strong>Validación cruzada</strong> para evaluar la robustez de los modelos</li>
+<li><strong>Métricas de evaluación</strong>: Precisión, Sensibilidad, Especificidad, AUC-ROC</li>
+<li><strong>Análisis de importancia de variables</strong> para identificar los predictores más relevantes</li>
+</ul>
+</div>
+<div id="implementación-clínica" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> 4. Implementación clínica<a href="posibles-formas-de-proceder-con-la-solución-de-la-problemática.html#implementación-clínica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Desarrollo de una herramienta de apoyo al diagnóstico</li>
+<li>Validación con datos clínicos reales</li>
+<li>Capacitación del personal médico en el uso de la herramienta</li>
+</ul>
+<p>Este enfoque integral permitirá desarrollar una solución robusta y clínicamente útil para el diagnóstico temprano del cáncer de mama.</p>
+
 </div>
 </div>
             </section>
@@ -305,8 +291,8 @@ div.csl-indent {
           </div>
         </div>
       </div>
-<a href="carga-de-datos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="limpieza-y-optimización-de-los-datos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="conclusiones.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="presentacion-del-problema-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -13,68 +13,71 @@ description: "This is a minimal example of using the bookdown package to write a
 ---
 
 # Presentacion del problema 
-En el dia de hoy mi grupo y yo daremos solcuion a un problema el cual perturba muchos hogares al rededor del mundo el cual es el cancer de mama, aunque por limitaciones dadas por el curso realizaremos un EDA basados en subconjunto de datos que se nos presenta.
+En el dia de hoy mi grupo y yo daremos solución a un problema el cual perturba muchos hogares al rededor del mundo el cual es el cáncer de mama, aunque por limitaciones dadas por el curso realizaremos un EDA basados en subconjunto de datos que se nos presenta.
 Este proyecto se dividira en 8 fases:
 
-1)Carga de datos
-
-2)Exploración inicial
-
-3)Limpieza de datos
-
-4)Análisis univariante
-
-5)Análisis bivariante
-
-6)Análisis multivariante
-
-7)Conclusiones
-
-8)Posibles formas de proceder con la solucion de la problematica 
-
-
-
-
-
-
+1) Carga de datos
+2) Exploración inicial
+3) Limpieza de datos
+4) Análisis univariante
+5) Análisis bivariante
+6) Análisis multivariante
+7) Conclusiones
+8) Posibles formas de proceder con la solución de la problemática 
 
 # Carga de datos
 
-En esta parte del book realizaremos la importacion del subconjunto de datos y ilustararemos a groso modo el estado en el que se encuentran los datos 
-```{r}
-url <- "https://raw.githubusercontent.com/jacob0900/EDAMetodos/main/wdbc.csv"
-datos <- read.csv(url, header = TRUE)
-ls()
-```
-
-Despues de haber cargado el subconjunto de datos daramenos una organizacion y descripccion de las variables siempre recordando que nuestra piedra anugular de nuestro estudio es la variable "Diagnosis"
-
+En esta parte del book realizaremos la importación del subconjunto de datos y ilustraremos a groso modo el estado en el que se encuentran los datos 
 
 ```{r}
-# Cargar librerías necesarias para bookdown
+# Cargar librerías necesarias
 library(knitr)
 library(kableExtra)
-library(dplyr)# Manipulación de Datos
-library(ggplot2)# Visualización de datos 
-library(readxl)# Importación de datos
-library(tibble)# Tablas
-library(readr)#Para cargar base de datos
+library(dplyr)
+library(ggplot2)
+library(readxl)
+library(tibble)
+library(readr)
+library(Amelia)
+library(reshape2)
+library(gridExtra)
+library(GGally)
 
+# Cargar datos
+url <- "https://raw.githubusercontent.com/jacob0900/EDAMetodos/main/wdbc.csv"
+datos <- read.csv(url, header = TRUE)
+
+# Asignar nombres correctos a las columnas
+colnames(datos) <- c(
+  "ID", "Diagnosis",
+  "radius1", "texture1", "perimeter1", "area1", "smoothness1",
+  "compactness1", "concavity1", "concave_points1", "symmetry1", "fractal_dimension1",
+  "radius2", "texture2", "perimeter2", "area2", "smoothness2",
+  "compactness2", "concavity2", "concave_points2", "symmetry2", "fractal_dimension2",
+  "radius3", "texture3", "perimeter3", "area3", "smoothness3",
+  "compactness3", "concavity3", "concave_points3", "symmetry3", "fractal_dimension3"
+)
+
+# Crear dataset optimizado (df) con solo las variables principales
+df <- datos %>%
+  select(ID, Diagnosis, radius1, texture1, perimeter1, area1, smoothness1,
+         compactness1, concavity1, concave_points1, symmetry1, fractal_dimension1)
+
+head(df)
+```
+
+Después de haber cargado el subconjunto de datos daremos una organización y descripción de las variables siempre recordando que nuestra piedra angular de nuestro estudio es la variable "Diagnosis"
+
+```{r}
 # Crear el data frame con la información de las variables
 tabla_variables <- data.frame(
   Variable = c(
     "ID", "Diagnosis",
     "radius1", "texture1", "perimeter1", "area1", "smoothness1", "compactness1", 
-    "concavity1", "concave_points1", "symmetry1", "fractal_dimension1",
-    "radius2", "texture2", "perimeter2", "area2", "smoothness2", "compactness2",
-    "concavity2", "concave_points2", "symmetry2", "fractal_dimension2",
-    "radius3", "texture3", "perimeter3", "area3", "smoothness3", "compactness3",
-    "concavity3", "concave_points3", "symmetry3", "fractal_dimension3"
+    "concavity1", "concave_points1", "symmetry1", "fractal_dimension1"
   ),
   Tipo = c(
     "Categórica nominal", "Categórica nominal",
-    rep("Numérica continua", 10),
-    rep("Numérica continua", 10),
     rep("Numérica continua", 10)
   ),
   Definición = c(
@@ -89,32 +92,10 @@ tabla_variables <- data.frame(
     "Media de severidad de porciones cóncavas del contorno",
     "Media de número de porciones cóncavas del contorno",
     "Media de simetría del núcleo celular",
-    "Media de dimensión fractal ('aproximación a la costa')",
-    "Error estándar de distancias desde el centro al perímetro",
-    "Error estándar de desviación estándar de valores de escala de grises",
-    "Error estándar del perímetro del núcleo celular",
-    "Error estándar del área del núcleo celular",
-    "Error estándar de variación local en longitudes de radio",
-    "Error estándar de compacidad (perímetro²/área - 1.0)",
-    "Error estándar de severidad de porciones cóncavas del contorno",
-    "Error estándar de número de porciones cóncavas del contorno",
-    "Error estándar de simetría del núcleo celular",
-    "Error estándar de dimensión fractal ('aproximación a la costa')",
-    "Mayor valor de distancias desde el centro al perímetro",
-    "Mayor valor de desviación estándar de valores de escala de grises",
-    "Mayor valor del perímetro del núcleo celular",
-    "Mayor valor del área del núcleo celular",
-    "Mayor valor de variación local en longitudes de radio",
-    "Mayor valor de compacidad (perímetro²/área - 1.0)",
-    "Mayor valor de severidad de porciones cóncavas del contorno",
-    "Mayor valor de número de porciones cóncavas del contorno",
-    "Mayor valor de simetría del núcleo celular",
-    "Mayor valor de dimensión fractal ('aproximación a la costa')"
+    "Media de dimensión fractal ('aproximación a la costa')"
   ),
   `Escala de Medición` = c(
     "Nominal", "Nominal",
-    rep("Razón", 10),
-    rep("Razón", 10),
     rep("Razón", 10)
   ),
   check.names = FALSE
@@ -137,99 +118,81 @@ kable(tabla_variables,
 
 # Exploración inicial
 
-## Impresion general de los datos 
+## Impresión general de los datos 
 ```{r}
-head(datos)
-ls()
-
+head(df)
+str(df)
 ```
 
-## Inspeccion la estructura
+## Inspección de la estructura
 
 ```{r}
-str(datos)
-
+str(df)
 ```
 
-## Dimension de los datos 
+## Dimensión de los datos 
 
 ```{r}
-dim(datos)
+dim(df)
 ```
 
-# Limpieza y optimizacion de los datos 
+# Limpieza y optimización de los datos 
 
-## Optimizacion de los datos  
+## Optimización de los datos  
 
 En el conjunto de datos de cáncer de mama, hemos identificado que múltiples variables representan mediciones redundantes de las mismas características nucleares subyacentes, donde cada atributo principal se expresa a través de tres variantes estadísticas: la media (sufijo 1), el error estándar (sufijo 2) y el valor máximo (sufijo 3). Esta estructura crea redundancia sustancial, ya que las versiones de error estándar y valores máximos son derivadas directamente de las mediciones medias y no aportan información independiente sobre nuevas características biológicas. Para optimizar los procesos analíticos, evitando multicolinealidad y reduciendo dimensionalidad sin pérdida de información esencial, utilizaremos exclusivamente las siguientes 10 variables de media (sufijo 1) como representantes canónicas de cada atributo nuclear:
 
 Variables representativas seleccionadas:
 
-radius1 → Representa: radius1, radius2, radius3
-
-texture1 → Representa: texture1, texture2, texture3
-
-perimeter1 → Representa: perimeter1, perimeter2, perimeter3
-
-area1 → Representa: area1, area2, area3
-
-smoothness1 → Representa: smoothness1, smoothness2, smoothness3
-
-compactness1 → Representa: compactness1, compactness2, compactness3
-
-concavity1 → Representa: concavity1, concavity2, concavity3
-
-concave_points1 → Representa: concave_points1, concave_points2, concave_points3
-
-symmetry1 → Representa: symmetry1, symmetry2, symmetry3
-
-fractal_dimension1 → Representa: fractal_dimension1, fractal_dimension2, fractal_dimension3
+- radius1 → Representa: radius1, radius2, radius3
+- texture1 → Representa: texture1, texture2, texture3
+- perimeter1 → Representa: perimeter1, perimeter2, perimeter3
+- area1 → Representa: area1, area2, area3
+- smoothness1 → Representa: smoothness1, smoothness2, smoothness3
+- compactness1 → Representa: compactness1, compactness2, compactness3
+- concavity1 → Representa: concavity1, concavity2, concavity3
+- concave_points1 → Representa: concave_points1, concave_points2, concave_points3
+- symmetry1 → Representa: symmetry1, symmetry2, symmetry3
+- fractal_dimension1 → Representa: fractal_dimension1, fractal_dimension2, fractal_dimension3
 
 Este enfoque estratégico reduce el espacio de características de 30 a 10 variables clave, preservando el 100% de las características morfológicas fundamentales mientras mejora significativamente la eficiencia computacional. 
 
-
-
-
 ## Limpieza de los datos
 
-### Valores restantes 
+### Valores faltantes 
 
-En este insizo revisaremos los valores faltantes que contiene nuestro subconjunto de datos y propondremos una solucion a esta problematica 
+En este inciso revisaremos los valores faltantes que contiene nuestro subconjunto de datos y propondremos una solución a esta problemática 
 
 ```{r}
-library(Amelia)
-
-missmap(datos)
-
-ls()
+missmap(df)
 ```
 
-De manera casi milagrosa nuestro subconjunto de datos no presenta ningun tipo de valores faltantes. Por lo que no sera nesesario modificar nuestro subconjunto con ninguna tecnica.
+De manera casi milagrosa nuestro subconjunto de datos no presenta ningún tipo de valores faltantes. Por lo que no será necesario modificar nuestro subconjunto con ninguna técnica.
 
-### Valores Atipicos 
-En esta parte revisaremos aquellos valores atipicos que se pueden generar y le daremos un tratamiento adecuado para poder culminar 
+### Valores Atípicos 
 
-#### Revision de la variables categoricas
+En esta parte revisaremos aquellos valores atípicos que se pueden generar y le daremos un tratamiento adecuado para poder culminar 
+
+#### Revisión de las variables categóricas
 
 ```{r}
+# Verificación de ID (IDs únicos)
+cat("=== VERIFICACIÓN DE ID (IDENTIFICADORES) ===\n")
+cat("Total de observaciones:", nrow(df), "\n")
+cat("IDs únicos:", length(unique(df$ID)), "\n")
+cat("¿Hay IDs duplicados?", ifelse(length(unique(df$ID)) == nrow(df), "NO", "SÍ"), "\n")
 
-# Verificación de X0 (IDs únicos)
-cat("=== VERIFICACIÓN DE X0 (IDENTIFICADORES) ===\n")
-cat("Total de observaciones:", nrow(datos), "\n")
-cat("IDs únicos:", length(unique(datos$X0)), "\n")
-cat("¿Hay IDs duplicados?", ifelse(length(unique(datos$X0)) == nrow(datos), "NO", "SÍ"), "\n")
-
-if(length(unique(datos$X0)) != nrow(datos)) {
-  duplicados <- datos$X0[duplicated(datos$X0)]
+if(length(unique(df$ID)) != nrow(df)) {
+  duplicados <- df$ID[duplicated(df$ID)]
   cat("IDs duplicados:", unique(duplicados), "\n")
 }
 
-cat("\n=== VERIFICACIÓN DE X1 (DIAGNÓSTICO) ===\n")
-cat("Valores únicos en X1:", unique(datos$X1), "\n")
-cat("¿Solo contiene M y B?", ifelse(all(datos$X1 %in% c("M", "B")), "SÍ", "NO"), "\n")
+cat("\n=== VERIFICACIÓN DE Diagnosis (DIAGNÓSTICO) ===\n")
+cat("Valores únicos en Diagnosis:", unique(df$Diagnosis), "\n")
+cat("¿Solo contiene M y B?", ifelse(all(df$Diagnosis %in% c("M", "B")), "SÍ", "NO"), "\n")
 
 # Tabla de frecuencias de diagnósticos
-tabla_diagnostico <- table(datos$X1)
+tabla_diagnostico <- table(df$Diagnosis)
 cat("Distribución de diagnósticos:\n")
 print(tabla_diagnostico)
 
@@ -237,27 +200,24 @@ print(tabla_diagnostico)
 cat("Porcentajes:\n")
 print(round(prop.table(tabla_diagnostico) * 100, 2))
 ```
-En este caso podemos obvservar que las variables categoricas no cuentan con valores atipicos ya que no hay ID repetidos y los todos diagnosticos estan en la
-categoria permitida 
 
-#### Revision de la variables numericas 
+En este caso podemos observar que las variables categóricas no cuentan con valores atípicos ya que no hay ID repetidos y todos los diagnósticos están en la categoría permitida 
+
+#### Revisión de las variables numéricas 
 
 ```{r}
-# Cargar librerías necesarias
-library(ggplot2)
-library(reshape2)
-
-# Seleccionar columnas X2 a X11 (variables numéricas de media)
-variables_numericas <- paste0("X", 2:11)
+# Seleccionar variables numéricas principales (excluyendo ID y Diagnosis)
+variables_numericas <- c("radius1", "texture1", "perimeter1", "area1", "smoothness1",
+                        "compactness1", "concavity1", "concave_points1", "symmetry1", "fractal_dimension1")
 
 # Verificar que las variables existen
 print("Variables seleccionadas para análisis de outliers:")
 print(variables_numericas)
 print("¿Existen en el dataset?")
-print(variables_numericas %in% names(datos))
+print(variables_numericas %in% names(df))
 
-# Seleccionar solo las columnas X2-X11 del dataset
-datos_outliers <- datos[, variables_numericas, drop = FALSE]
+# Seleccionar solo las variables numéricas del dataset
+datos_outliers <- df[, variables_numericas, drop = FALSE]
 
 # Transformar datos a formato largo para el gráfico
 datos_long <- reshape2::melt(datos_outliers, variable.name = "Variable", value.name = "Valor")
@@ -266,46 +226,40 @@ datos_long <- reshape2::melt(datos_outliers, variable.name = "Variable", value.n
 ggplot(datos_long, aes(x = Variable, y = Valor)) +
   geom_boxplot(fill = "lightblue", alpha = 0.7, outlier.colour = "red", outlier.size = 1.5) +
   facet_wrap(~Variable, scales = "free", ncol = 3) +
-  labs(title = "Detección de Valores Extremos por Variable (X2-X11)",
+  labs(title = "Detección de Valores Extremos por Variable",
        subtitle = "Los puntos rojos indican posibles outliers",
        x = "Variables",
        y = "Valores") +
   theme_minimal() +
-  theme(axis.text.x = element_blank(),
-        axis.ticks.x = element_blank())
-
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-Dada la presencia de escalas dispares (de 0.08 a 2500) y posibles valores atípicos en las variables (X2 a X11), como se observa en los gráficos con puntos rojos desplazados hacia extremos superiores, se decidió aplicar una transformación logarítmica para estabilizar la varianza, reducir el impacto de los outliers y homogeneizar los rangos intercuartílicos, evitando así sesgos al omitir o reemplazar datos. Esta elección es adecuada porque los datos parecen positivos y asimétricos a la derecha, lo que sugiere una distribución que se beneficiaría de la compresión de valores grandes y la normalización relativa, alineándose con el objetivo de facilitar análisis estadísticos sin perder representatividad.
 
-##### Sulucion al problema con las variables numericas 
+Dada la presencia de escalas dispares y posibles valores atípicos en las variables numéricas, como se observa en los gráficos con puntos rojos desplazados hacia extremos superiores, se decidió aplicar una transformación logarítmica para estabilizar la varianza, reducir el impacto de los outliers y homogeneizar los rangos intercuartílicos, evitando así sesgos al omitir o reemplazar datos. Esta elección es adecuada porque los datos parecen positivos y asimétricos a la derecha, lo que sugiere una distribución que se beneficiaría de la compresión de valores grandes y la normalización relativa, alineándose con el objetivo de facilitar análisis estadísticos sin perder representatividad.
 
+##### Solución al problema con las variables numéricas 
 
 ```{r}
-# Cargar librerías necesarias
-library(ggplot2)
-library(reshape2)
-library(gridExtra)
-
-# Variables a transformar (X2-X11)
-variables_numericas <- paste0("X", 2:11)
+# Variables a transformar (variables numéricas principales)
+variables_numericas <- c("radius1", "texture1", "perimeter1", "area1", "smoothness1",
+                        "compactness1", "concavity1", "concave_points1", "symmetry1", "fractal_dimension1")
 
 # Verificar si hay valores negativos o cero (problema para log)
 cat("=== VERIFICACIÓN PREVIA A TRANSFORMACIÓN LOG ===\n")
 for(var in variables_numericas) {
-  min_val <- min(datos[[var]], na.rm = TRUE)
+  min_val <- min(df[[var]], na.rm = TRUE)
   cat(var, "- Valor mínimo:", min_val, 
       ifelse(min_val <= 0, " ⚠️ PROBLEMA PARA LOG", " ✓ OK para LOG"), "\n")
 }
 
 # Crear datos transformados con log (solo si todos los valores son positivos)
-datos_log <- datos
+datos_log <- df
 for(var in variables_numericas) {
-  if(min(datos[[var]], na.rm = TRUE) > 0) {
-    datos_log[[paste0(var, "_log")]] <- log(datos[[var]])
+  if(min(df[[var]], na.rm = TRUE) > 0) {
+    datos_log[[paste0(var, "_log")]] <- log(df[[var]])
   } else {
     # Si hay valores <= 0, usar log(x + constante)
-    constante <- abs(min(datos[[var]])) + 1
-    datos_log[[paste0(var, "_log")]] <- log(datos[[var]] + constante)
+    constante <- abs(min(df[[var]])) + 1
+    datos_log[[paste0(var, "_log")]] <- log(df[[var]] + constante)
     cat("Variable", var, "transformada con log(x +", constante, ")\n")
   }
 }
@@ -315,7 +269,7 @@ variables_log <- paste0(variables_numericas, "_log")
 
 # COMPARACIÓN: Datos originales vs transformados
 # Datos originales
-datos_orig_long <- reshape2::melt(datos[, variables_numericas], 
+datos_orig_long <- reshape2::melt(df[, variables_numericas], 
                                   variable.name = "Variable", 
                                   value.name = "Valor")
 datos_orig_long$Tipo <- "Original"
@@ -337,11 +291,10 @@ ggplot(datos_comparacion, aes(x = Variable, y = Valor, fill = Tipo)) +
   facet_grid(Tipo ~ Variable, scales = "free") +
   labs(title = "Comparación: Datos Originales vs Transformación Logarítmica",
        subtitle = "La transformación log reduce la dispersión y outliers",
-       x = "Variables (X2-X11)",
+       x = "Variables",
        y = "Valores") +
   theme_minimal() +
-  theme(axis.text.x = element_blank(),
-        axis.ticks.x = element_blank()) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_fill_manual(values = c("Original" = "lightcoral", 
                                "Log transformado" = "lightblue"))
 
@@ -352,11 +305,11 @@ for(i in 1:length(variables_numericas)) {
   var_log <- variables_log[i]
   
   # Outliers originales
-  Q1_orig <- quantile(datos[[var_orig]], 0.25)
-  Q3_orig <- quantile(datos[[var_orig]], 0.75)
+  Q1_orig <- quantile(df[[var_orig]], 0.25)
+  Q3_orig <- quantile(df[[var_orig]], 0.75)
   IQR_orig <- Q3_orig - Q1_orig
-  outliers_orig <- sum(datos[[var_orig]] < (Q1_orig - 1.5*IQR_orig) | 
-                       datos[[var_orig]] > (Q3_orig + 1.5*IQR_orig))
+  outliers_orig <- sum(df[[var_orig]] < (Q1_orig - 1.5*IQR_orig) | 
+                       df[[var_orig]] > (Q3_orig + 1.5*IQR_orig))
   
   # Outliers transformados
   Q1_log <- quantile(datos_log[[var_log]], 0.25)
@@ -373,5 +326,349 @@ for(i in 1:length(variables_numericas)) {
 }
 ```
 
+# Análisis univariante
 
+## Variables numéricas
 
+```{r analisis_univariante_numericas}
+# Análisis de radius1
+cat("Estadísticas descriptivas de radius1:\n")
+cat("Media:", mean(df$radius1), "\n")
+cat("Mediana:", median(df$radius1), "\n")
+cat("Desviación estándar:", sd(df$radius1), "\n")
+cat("Rango intercuartílico:", IQR(df$radius1), "\n")
+cat("Rango:", paste(range(df$radius1), collapse = " - "), "\n")
+
+# Histograma básico
+ggplot(df, aes(x = radius1)) +
+  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  theme_minimal() +
+  labs(title = "Histograma de radius1", x = "Radius1", y = "Frecuencia")
+```
+
+```{r}
+# Histograma con densidad
+ggplot(df, aes(x = radius1, y = after_stat(density))) +
+  geom_histogram(bins = 30, fill = "lightblue", alpha = 0.6) +
+  geom_density(color = "red", size = 1) +
+  theme_minimal() +
+  labs(title = "Histograma + Densidad de radius1", x = "Radius1", y = "Densidad")
+```
+
+```{r}
+df %>%
+  ggplot(aes(x = "", y = radius1)) +
+  geom_boxplot(fill = "#a6cee3", color = "#1f78b4", outlier.color = "red") +
+  stat_summary(
+    fun = mean,
+    geom = "point",
+    shape = 20,
+    size = 3,
+    color = "black"
+  ) +
+  labs(
+    title = "Diagrama de cajas y bigotes de Radio1",
+    x = "",
+    y = "RADIO (MM)"
+  ) +
+  theme_bw()
+```
+
+Se puede observar cierta asimetría en los datos de la distribución radius1. Además, se aprecia un sesgo hacia la derecha y una cantidad significativa de valores atípicos altos, esto indica que la mayoría de los radios tienen un tamaño estándar, pero existen algunos valores excepcionalmente grandes. Estos casos atípicos influyen significativamente en la media y en la desviación estándar de la distribución.
+
+## Variables categóricas
+
+```{r analisis_univariante_categoricas}
+# Gráfico de barras básico
+ggplot(df, aes(x = Diagnosis)) +
+  geom_bar(fill = "orange", color = "black") +
+  theme_minimal() +
+  labs(title = "Distribución de Diagnósticos", x = "Diagnóstico", y = "Frecuencia")
+```
+
+```{r}
+# Gráfico de barras con porcentajes
+df %>%
+  count(Diagnosis) %>%
+  mutate(pct = n / sum(n) * 100) %>%
+  ggplot(aes(x = Diagnosis, y = pct)) +
+  geom_col(fill = "steelblue") +
+  geom_text(aes(label = paste0(round(pct,1), "%")), vjust = -0.5) +
+  theme_minimal() +
+  labs(title = "Porcentaje por Diagnóstico", x = "Diagnóstico", y = "Porcentaje")
+
+# Frecuencias relativas
+cat("Frecuencias relativas de diagnósticos:\n")
+print(prop.table(table(df$Diagnosis)))
+```
+
+La mayoría de los pacientes (62.7%) presentan tumores de tipo B (benignos), mientras que el 37.3% corresponde al tipo M (malignos).
+
+# Análisis bivariante
+
+## Variable numérica vs. categórica
+
+```{r analisis_bivariante_num_cat}
+# Boxplot
+ggplot(df, aes(x = Diagnosis, y = radius1)) +
+  geom_boxplot(fill = "lightgreen") +
+  theme_minimal() +
+  labs(title = "radius1 según Diagnóstico", x = "Diagnóstico", y = "Radius1")
+```
+
+```{r}
+# Violin plot
+ggplot(df, aes(x = Diagnosis, y = radius1)) +
+  geom_violin(fill = "violet", alpha = 0.6) +
+  geom_boxplot(width = 0.1, fill = "white", outlier.size = 0.5) +
+  theme_minimal() +
+  labs(title = "Distribución de radius1 por Diagnóstico", x = "Diagnóstico", y = "Radius1")
+```
+
+El gráfico compara el radio de los tumores B (benignos) y M (malignos). Se aprecia que, aunque la mayoría de los tumores son de tipo B, los de tipo M se concentran en valores significativamente más altos, incluso con datos extremos más elevados.
+
+Los tumores tipo B presentan una distribución más compacta, mientras que los tipo M muestran mayor variación en sus radios. Los primeros tienen un comportamiento más homogéneo, mientras que los segundos presentan mayor dispersión.
+
+Los puntos negros sobre las cajas (que representan valores atípicos) destacan la presencia de tumores excepcionalmente grandes, principalmente en los tipo M.
+
+En síntesis, los resultados sugieren que:
+
+- Los tumores malignos (tipo M) tienden a tener radios mayores y mayor variabilidad
+- Los benignos (tipo B) presentan un comportamiento más compacto y radios menores.
+
+## Variable numérica vs. numérica
+
+```{r analisis_bivariante_num_num}
+# Scatter plot básico
+ggplot(df, aes(x = radius1, y = area1)) +
+  geom_point(alpha = 0.5, color = "blue") +
+  theme_minimal() +
+  labs(title = "Relación entre radius1 y area1", x = "Radius1", y = "Area1")
+```
+
+```{r}
+# Scatter plot con regresión
+ggplot(df, aes(x = radius1, y = area1)) +
+  geom_point(alpha = 0.5, color = "blue") +
+  geom_smooth(method = "lm", color = "red") +
+  theme_minimal() +
+  labs(title = "Regresión radius1 vs area1", x = "Radius1", y = "Area1")
+
+# Correlación
+cat("Correlación entre radius1 y area1:", cor(df$radius1, df$area1), "\n")
+```
+
+```{r}
+# Mapa de correlaciones
+numeric_vars <- df %>% select(where(is.numeric), -ID)
+ggcorr(numeric_vars, label = TRUE, label_round = 2) +
+  labs(title = "Matriz de Correlaciones")
+```
+
+Existe una relación evidente entre el radio1 y el área1, específicamente una correlación positiva: cuando el radio aumenta, el área también lo hace.
+
+La matriz de correlación muestra que hay pocas correlaciones negativas (ninguna significativa). En general, las variables presentan correlaciones positivas, evidenciado por el predominio del color rojo que indica valores cercanos a 1. Esto tiene sentido, ya que la mayoría están relacionadas con el tamaño.
+
+Como excepción, la variable textura muestra valores cercanos a 0, indicando que no tiene una correlación significativa con las demás variables.
+
+## Variable categórica vs. categórica
+
+```{r analisis_bivariante_cat_cat}
+# Tabla cruzada de diagnóstico con grupos de radius1
+radius_groups <- cut(df$radius1, breaks = 3, labels = c("Bajo", "Medio", "Alto"))
+tab <- table(df$Diagnosis, radius_groups)
+cat("Tabla cruzada Diagnóstico vs Grupos de Radius1:\n")
+print(tab)
+
+cat("\nProporciones:\n")
+print(prop.table(tab))
+
+# Heatmap
+tab_df <- as.data.frame(tab)
+colnames(tab_df) <- c("Diagnosis", "RadiusGroup", "Freq")
+
+ggplot(tab_df, aes(x = RadiusGroup, y = Diagnosis, fill = Freq)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient(low = "white", high = "red") +
+  theme_minimal() +
+  labs(title = "Heatmap Diagnóstico vs Grupo de Radius1", 
+       x = "Grupo de Radius1", y = "Diagnóstico", fill = "Frecuencia")
+```
+
+El heatmap muestra la relación entre el diagnóstico de tumores benignos (B) y malignos (M) y su clasificación en grupos de Radius1 (Bajo, Medio y Alto), evidenciando que la mayor concentración de casos corresponde a tumores benignos con radios bajos, mientras que los malignos se presentan con mayor frecuencia en radios medios y en menor proporción en radios bajos; por otro lado, los tumores con radios altos son poco comunes en ambos diagnósticos, lo que sugiere que los radios pequeños predominan en los tumores benignos y que los malignos tienden a concentrarse más en radios intermedios que en extremos.
+
+# Análisis multivariante
+
+## Análisis descriptivo detallado de variables numéricas
+
+```{r estadisticas_descriptivas_detalladas}
+# Cargar librerías adicionales si no están cargadas
+library(patchwork)
+
+# Estadísticas descriptivas para radius1
+df %>% 
+  summarise(
+    n = length(radius1),
+    media = mean(radius1),
+    ds = sd(radius1),
+    mediana = median(radius1),
+    minimo = min(radius1),
+    maximo = max(radius1),
+    Q1 = quantile(radius1, 0.25),
+    Q3 = quantile(radius1, 0.75),
+    IQR = IQR(radius1)) %>%
+  mutate(variable = "radius1") -> var_num_rad
+
+# Estadísticas descriptivas para texture1
+df %>% 
+  summarise(
+    n = length(texture1),
+    media = mean(texture1),
+    ds = sd(texture1),
+    mediana = median(texture1),
+    minimo = min(texture1),
+    maximo = max(texture1),
+    Q1 = quantile(texture1, 0.25),
+    Q3 = quantile(texture1, 0.75),
+    IQR = IQR(texture1)) %>% 
+  mutate(variable = "texture1") -> var_num_tex
+
+# Estadísticas descriptivas para perimeter1
+df %>% 
+  summarise(
+    n = length(perimeter1),
+    media = mean(perimeter1),
+    ds = sd(perimeter1),
+    mediana = median(perimeter1),
+    minimo = min(perimeter1),
+    maximo = max(perimeter1),
+    Q1 = quantile(perimeter1, 0.25),
+    Q3 = quantile(perimeter1, 0.75),
+    IQR = IQR(perimeter1)) %>% 
+  mutate(variable = "perimeter1") -> var_num_per
+
+# Combinar todas las estadísticas
+estadisticas_completas <- bind_rows(var_num_rad, var_num_tex, var_num_per) %>%
+  select(variable, everything())
+
+print(estadisticas_completas)
+
+# Boxplot de radius1
+p1 <- df %>%
+  ggplot(aes(x="", y = radius1)) +
+  geom_boxplot(fill = "#1f77b4", alpha = 0.7) +
+  labs(
+    title = "Distribución del Radio",
+    y = "RADIO (MM)",
+    x = ""
+  ) +
+  theme_bw()
+
+# Boxplot de texture1
+p2 <- df %>%
+  ggplot(aes(x="", y = texture1)) +
+  geom_boxplot(fill = "#2ca02c", alpha = 0.7) +
+  labs(
+    title = "Distribución de la Textura",
+    y = "TEXTURE (MM)",
+    x = ""
+  ) +
+  theme_bw()
+
+# Boxplot de perimeter1
+p3 <- df %>%
+  ggplot(aes(x="", y = perimeter1)) +
+  geom_boxplot(fill = "#d62728", alpha = 0.7) +
+  labs(
+    title = "Distribución del Perímetro",
+    y = "PERÍMETRO (MM)",
+    x = ""
+  ) +
+  theme_bw()
+
+# Unir los tres gráficos en una sola visualización
+p1 + p2 + p3
+```
+
+Los diagramas de caja muestran la distribución de tres características de los tumores: radio, textura y perímetro. En general, las tres variables presentan una concentración central de valores con medianas alrededor de 14 mm para el radio, 18 mm para la textura y 90 mm para el perímetro. En los tres casos se observan valores atípicos hacia la parte superior, lo que indica la presencia de tumores con medidas considerablemente mayores al promedio, siendo más notorio en el radio y el perímetro. La dispersión es moderada y simétrica en el rango intercuartílico, lo que sugiere que la mayoría de los tumores tienen dimensiones relativamente homogéneas, mientras que los valores extremos corresponden a casos menos frecuentes con dimensiones significativamente más altas.
+
+## Análisis multivariante completo
+
+```{r analisis_multivariante_completo}
+# Matriz de gráficos de dispersión
+numeric_vars <- df %>% select(where(is.numeric), -ID)
+ggpairs(numeric_vars, 
+        title = "Matriz de Correlaciones y Distribuciones",
+        lower = list(continuous = "smooth"),
+        diag = list(continuous = "densityDiag"))
+
+# Análisis de correlación específico para radius, texture y perimeter
+variables_principales <- df %>% select(radius1, texture1, perimeter1)
+cat("\nMatriz de correlación entre variables principales:\n")
+print(round(cor(variables_principales), 3))
+
+# Gráfico 3D conceptual usando scatterplot matrix
+ggpairs(variables_principales,
+        title = "Análisis Multivariante: Radio vs Textura vs Perímetro",
+        lower = list(continuous = wrap("smooth", alpha = 0.3, size = 0.1)),
+        diag = list(continuous = wrap("densityDiag", alpha = 0.5)),
+        upper = list(continuous = wrap("cor", size = 4)))
+```
+
+El análisis multivariante entre radio (radius1), textura (texture1) y perímetro (perimeter1) muestra que el radio y el perímetro están fuertemente correlacionados (r ≈ 0.998), lo que indica una relación casi lineal directa: a mayor radio, mayor perímetro. La textura presenta correlaciones positivas moderadas tanto con el radio (r ≈ 0.324) como con el perímetro (r ≈ 0.330), lo que sugiere que tumores con radios y perímetros mayores tienden a tener texturas algo más elevadas, aunque esta relación no es tan marcada. Las distribuciones individuales muestran que el radio y el perímetro tienen formas similares, mientras que la textura presenta una dispersión más amplia y simétrica. En conjunto, los resultados indican que el radio y el perímetro son casi equivalentes en comportamiento, mientras que la textura, aunque relacionada, aporta variabilidad independiente.
+
+# Conclusiones
+
+## Conclusiones preliminares:
+
+1. El dataset contiene 569 observaciones y 12 variables (ID, Diagnosis y 10 predictoras numéricas).
+2. Las variables muestran diferentes patrones de correlación que podrían ser útiles para modelos predictivos.
+3. No se encontraron valores faltantes en el dataset.
+4. Se identificaron valores atípicos en varias variables numéricas.
+
+## Conclusiones post análisis
+
+El análisis revela que la mayoría de los pacientes presentan tumores benignos (62.7%), mientras que el 37.3% son malignos, observándose que los primeros predominan en radios bajos y tienen una distribución más compacta, mientras que los malignos tienden a concentrarse en radios medios, con mayor variabilidad y presencia de valores atípicos altos. Las distribuciones de radio, textura y perímetro muestran concentraciones centrales claras (14 mm, 18 mm y 90 mm, respectivamente) pero con casos excepcionales de gran tamaño, especialmente en radio y perímetro. Existe una correlación casi perfecta entre radio y perímetro (r ≈ 0.998) y correlaciones moderadas de la textura con ambas variables, mientras que la matriz de correlación evidencia en general relaciones positivas entre las variables asociadas al tamaño, siendo la textura la menos relacionada. Estos hallazgos sugieren que el tamaño del tumor, especialmente medido por radio y perímetro, es un factor clave de diferenciación entre tipos benignos y malignos, y que aunque la textura aporta información adicional, su influencia es menos marcada.
+
+## Próximos pasos recomendados:
+
+- Ingeniería de características
+- Selección de variables más relevantes  
+- Implementación de modelos de Machine Learning
+- Validación cruzada y evaluación de rendimiento
+- Interpretación de resultados clínicos
+- Pruebas de normalidad: Shapiro–Wilk, Kolmogorov–Smirnov, Anderson–Darling
+- Visualización de normalidad: histogramas, Q–Q plots, densidades
+
+# Posibles formas de proceder con la solución de la problemática
+
+Basándose en los resultados del análisis exploratorio de datos, se proponen las siguientes estrategias para abordar la problemática del diagnóstico de cáncer de mama:
+
+## 1. Preparación de datos para modelado
+
+- **Normalización/Estandarización**: Aplicar técnicas de escalado a las variables numéricas para homogeneizar sus rangos
+- **Ingeniería de características**: Crear nuevas variables combinando las existentes (por ejemplo, ratios entre área y perímetro)
+- **Selección de características**: Utilizar técnicas como PCA o selección basada en correlación para reducir redundancia
+
+## 2. Desarrollo de modelos predictivos
+
+- **Modelos de clasificación supervisada**:
+  - Regresión Logística
+  - Random Forest
+  - Support Vector Machine (SVM)
+  - Redes Neuronales
+  - XGBoost
+
+## 3. Validación y evaluación
+
+- **Validación cruzada** para evaluar la robustez de los modelos
+- **Métricas de evaluación**: Precisión, Sensibilidad, Especificidad, AUC-ROC
+- **Análisis de importancia de variables** para identificar los predictores más relevantes
+
+## 4. Implementación clínica
+
+- Desarrollo de una herramienta de apoyo al diagnóstico
+- Validación con datos clínicos reales
+- Capacitación del personal médico en el uso de la herramienta
+
+Este enfoque integral permitirá desarrollar una solución robusta y clínicamente útil para el diagnóstico temprano del cáncer de mama.
