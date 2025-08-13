@@ -1,3 +1,127 @@
-# Literature
 
-Here is a review of existing methods.
+install.packages(c("ggplot2", "dplyr", "GGally", "reshape2"))
+library(ggplot2)
+library(dplyr)
+library(GGally)   # para scatterplots múltiples y correlaciones
+library(reshape2) # para heatmaps
+
+
+df <- read.csv("C:\\Users\\samit\\Downloads\\breast+cancer+wisconsin+diagnostic\\wdbc.data",
+               header = FALSE)
+
+
+colnames(df) <- c(
+  "ID", "Diagnosis",
+  "radius1", "texture1", "perimeter1", "area1", "smoothness1",
+  "compactness1", "concavity1", "concave_points1", "symmetry1", "fractal_dimension1",
+  # El dataset tiene más columnas, pero no las usaremos en este análisis
+  paste0("var", 13:ncol(df))
+)
+
+# Nos quedamos solo con las 12 variables representativas
+df <- df %>%
+  select(ID, Diagnosis, radius1, texture1, perimeter1, area1, smoothness1,
+         compactness1, concavity1, concave_points1, symmetry1, fractal_dimension1)
+
+# Vista rápida
+str(df)
+summary(df)
+
+# ---- 4. Análisis univariante ----
+
+## 4.1 Variables numéricas
+# Ejemplo histograma
+ggplot(df, aes(x = radius1)) +
+  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  theme_minimal() +
+  labs(title = "Histograma de radius1")
+
+# Histograma con densidad
+ggplot(df, aes(x = radius1, y = ..density..)) +
+  geom_histogram(bins = 30, fill = "lightblue", alpha = 0.6) +
+  geom_density(color = "red", size = 1) +
+  theme_minimal() +
+  labs(title = "Histograma + Densidad de radius1")
+
+# Medidas de tendencia/dispersión
+mean(df$radius1)
+median(df$radius1)
+sd(df$radius1)
+IQR(df$radius1)
+range(df$radius1)
+
+## 4.2 Variables categóricas
+# Gráfico de barras
+ggplot(df, aes(x = Diagnosis)) +
+  geom_bar(fill = "orange", color = "black") +
+  theme_minimal() +
+  labs(title = "Distribución de Diagnósticos")
+
+# Gráfico de barras con porcentajes
+df %>%
+  count(Diagnosis) %>%
+  mutate(pct = n / sum(n) * 100) %>%
+  ggplot(aes(x = Diagnosis, y = pct)) +
+  geom_col(fill = "steelblue") +
+  geom_text(aes(label = paste0(round(pct,1), "%")), vjust = -0.5) +
+  theme_minimal() +
+  labs(title = "Porcentaje por Diagnóstico", y = "Porcentaje")
+
+# Frecuencias relativas
+prop.table(table(df$Diagnosis))
+
+# ---- 5. Análisis bivariante ----
+
+## 5.1 Numérica vs. categórica
+# Boxplot
+ggplot(df, aes(x = Diagnosis, y = radius1)) +
+  geom_boxplot(fill = "lightgreen") +
+  theme_minimal() +
+  labs(title = "radius1 según Diagnóstico")
+
+# Violin plot
+ggplot(df, aes(x = Diagnosis, y = radius1)) +
+  geom_violin(fill = "violet", alpha = 0.6) +
+  geom_boxplot(width = 0.1, fill = "white", outlier.size = 0.5) +
+  theme_minimal() +
+  labs(title = "Distribución de radius1 por Diagnóstico")
+
+## 5.2 Numérica vs. numérica
+# Scatter plot básico
+ggplot(df, aes(x = radius1, y = area1)) +
+  geom_point(alpha = 0.5, color = "blue") +
+  theme_minimal() +
+  labs(title = "Relación entre radius1 y area1")
+
+# Scatter plot con regresión
+ggplot(df, aes(x = radius1, y = area1)) +
+  geom_point(alpha = 0.5, color = "blue") +
+  geom_smooth(method = "lm", color = "red") +
+  theme_minimal() +
+  labs(title = "Regresión radius1 vs area1")
+
+# Correlación
+cor(df$radius1, df$area1)
+
+# Mapa de correlaciones
+numeric_vars <- df %>% select(where(is.numeric))
+ggcorr(numeric_vars, label = TRUE, label_round = 2)
+
+## 5.3 Categórica vs. categórica
+# Creamos grupos de radius1 para ejemplo
+table(df$Diagnosis, cut(df$radius1, breaks = 3))
+prop.table(table(df$Diagnosis, cut(df$radius1, breaks = 3)))
+
+# Heatmap ejemplo
+tab <- table(df$Diagnosis, cut(df$radius1, breaks = 3))
+tab_df <- as.data.frame(tab)
+colnames(tab_df) <- c("Diagnosis", "RadiusGroup", "Freq")
+
+ggplot(tab_df, aes(x = RadiusGroup, y = Diagnosis, fill = Freq)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient(low = "white", high = "red") +
+  theme_minimal() +
+  labs(title = "Heatmap Diagnóstico vs Grupo de Radius1")
+
+# ---- 6. Extra: Scatterplot matrix ----
+ggpairs(numeric_vars)
