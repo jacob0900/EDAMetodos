@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>EDA METODOS</title>
+  <title>Chapter 3 Exploración inicial | EDA METODOS</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="EDA METODOS" />
+  <meta property="og:title" content="Chapter 3 Exploración inicial | EDA METODOS" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="EDA METODOS" />
+  <meta name="twitter:title" content="Chapter 3 Exploración inicial | EDA METODOS" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="carga-de-datos.html"/>
+<link rel="prev" href="carga-de-datos.html"/>
+<link rel="next" href="limpieza-y-optimizacion-de-los-datos.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -207,31 +207,85 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">EDA METODOS</h1>
-<p class="author"><em>Jacobo Londoño, Jesus David Barrios, Samuel Chamorro</em></p>
-<p class="date"><em>2025-08-13</em></p>
+<div id="exploración-inicial" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Exploración inicial<a href="exploración-inicial.html#exploración-inicial" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="impresion-general-de-los-datos" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Impresion general de los datos<a href="exploración-inicial.html#impresion-general-de-los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="exploración-inicial.html#cb13-1" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code></pre></div>
+<pre><code>##         X0 X1    X2    X3     X4     X5      X6      X7     X8      X9    X10
+## 1   842302  M 17.99 10.38 122.80 1001.0 0.11840 0.27760 0.3001 0.14710 0.2419
+## 2   842517  M 20.57 17.77 132.90 1326.0 0.08474 0.07864 0.0869 0.07017 0.1812
+## 3 84300903  M 19.69 21.25 130.00 1203.0 0.10960 0.15990 0.1974 0.12790 0.2069
+## 4 84348301  M 11.42 20.38  77.58  386.1 0.14250 0.28390 0.2414 0.10520 0.2597
+## 5 84358402  M 20.29 14.34 135.10 1297.0 0.10030 0.13280 0.1980 0.10430 0.1809
+## 6   843786  M 12.45 15.70  82.57  477.1 0.12780 0.17000 0.1578 0.08089 0.2087
+##       X11    X12    X13   X14    X15      X16     X17     X18     X19     X20
+## 1 0.07871 1.0950 0.9053 8.589 153.40 0.006399 0.04904 0.05373 0.01587 0.03003
+## 2 0.05667 0.5435 0.7339 3.398  74.08 0.005225 0.01308 0.01860 0.01340 0.01389
+## 3 0.05999 0.7456 0.7869 4.585  94.03 0.006150 0.04006 0.03832 0.02058 0.02250
+## 4 0.09744 0.4956 1.1560 3.445  27.23 0.009110 0.07458 0.05661 0.01867 0.05963
+## 5 0.05883 0.7572 0.7813 5.438  94.44 0.011490 0.02461 0.05688 0.01885 0.01756
+## 6 0.07613 0.3345 0.8902 2.217  27.19 0.007510 0.03345 0.03672 0.01137 0.02165
+##        X21   X22   X23    X24    X25    X26    X27    X28    X29    X30     X31
+## 1 0.006193 25.38 17.33 184.60 2019.0 0.1622 0.6656 0.7119 0.2654 0.4601 0.11890
+## 2 0.003532 24.99 23.41 158.80 1956.0 0.1238 0.1866 0.2416 0.1860 0.2750 0.08902
+## 3 0.004571 23.57 25.53 152.50 1709.0 0.1444 0.4245 0.4504 0.2430 0.3613 0.08758
+## 4 0.009208 14.91 26.50  98.87  567.7 0.2098 0.8663 0.6869 0.2575 0.6638 0.17300
+## 5 0.005115 22.54 16.67 152.20 1575.0 0.1374 0.2050 0.4000 0.1625 0.2364 0.07678
+## 6 0.005082 15.47 23.75 103.40  741.6 0.1791 0.5249 0.5355 0.1741 0.3985 0.12440</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="exploración-inicial.html#cb15-1" tabindex="-1"></a><span class="fu">ls</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;datos&quot;           &quot;tabla_variables&quot; &quot;url&quot;</code></pre>
 </div>
-<div id="presentacion-del-problema" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Presentacion del problema<a href="index.html#presentacion-del-problema" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>En el dia de hoy mi grupo y yo daremos solcuion a un problema el cual perturba muchos hogares al rededor del mundo el cual es el cancer de mama, aunque por limitaciones dadas por el curso realizaremos un EDA basados en subconjunto de datos que se nos presenta.
-Este proyecto se dividira en 8 fases:</p>
-<p>1)Carga de datos</p>
-<p>2)Exploración inicial</p>
-<p>3)Limpieza de datos</p>
-<p>4)Análisis univariante</p>
-<p>5)Análisis bivariante</p>
-<p>6)Análisis multivariante</p>
-<p>7)Conclusiones</p>
-<p>8)Posibles formas de proceder con la solucion de la problematica</p>
+<div id="inspeccion-la-estructura" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Inspeccion la estructura<a href="exploración-inicial.html#inspeccion-la-estructura" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="exploración-inicial.html#cb17-1" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    569 obs. of  32 variables:
+##  $ X0 : int  842302 842517 84300903 84348301 84358402 843786 844359 84458202 844981 84501001 ...
+##  $ X1 : chr  &quot;M&quot; &quot;M&quot; &quot;M&quot; &quot;M&quot; ...
+##  $ X2 : num  18 20.6 19.7 11.4 20.3 ...
+##  $ X3 : num  10.4 17.8 21.2 20.4 14.3 ...
+##  $ X4 : num  122.8 132.9 130 77.6 135.1 ...
+##  $ X5 : num  1001 1326 1203 386 1297 ...
+##  $ X6 : num  0.1184 0.0847 0.1096 0.1425 0.1003 ...
+##  $ X7 : num  0.2776 0.0786 0.1599 0.2839 0.1328 ...
+##  $ X8 : num  0.3001 0.0869 0.1974 0.2414 0.198 ...
+##  $ X9 : num  0.1471 0.0702 0.1279 0.1052 0.1043 ...
+##  $ X10: num  0.242 0.181 0.207 0.26 0.181 ...
+##  $ X11: num  0.0787 0.0567 0.06 0.0974 0.0588 ...
+##  $ X12: num  1.095 0.543 0.746 0.496 0.757 ...
+##  $ X13: num  0.905 0.734 0.787 1.156 0.781 ...
+##  $ X14: num  8.59 3.4 4.58 3.44 5.44 ...
+##  $ X15: num  153.4 74.1 94 27.2 94.4 ...
+##  $ X16: num  0.0064 0.00522 0.00615 0.00911 0.01149 ...
+##  $ X17: num  0.049 0.0131 0.0401 0.0746 0.0246 ...
+##  $ X18: num  0.0537 0.0186 0.0383 0.0566 0.0569 ...
+##  $ X19: num  0.0159 0.0134 0.0206 0.0187 0.0188 ...
+##  $ X20: num  0.03 0.0139 0.0225 0.0596 0.0176 ...
+##  $ X21: num  0.00619 0.00353 0.00457 0.00921 0.00511 ...
+##  $ X22: num  25.4 25 23.6 14.9 22.5 ...
+##  $ X23: num  17.3 23.4 25.5 26.5 16.7 ...
+##  $ X24: num  184.6 158.8 152.5 98.9 152.2 ...
+##  $ X25: num  2019 1956 1709 568 1575 ...
+##  $ X26: num  0.162 0.124 0.144 0.21 0.137 ...
+##  $ X27: num  0.666 0.187 0.424 0.866 0.205 ...
+##  $ X28: num  0.712 0.242 0.45 0.687 0.4 ...
+##  $ X29: num  0.265 0.186 0.243 0.258 0.163 ...
+##  $ X30: num  0.46 0.275 0.361 0.664 0.236 ...
+##  $ X31: num  0.1189 0.089 0.0876 0.173 0.0768 ...</code></pre>
+</div>
+<div id="dimension-de-los-datos" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Dimension de los datos<a href="exploración-inicial.html#dimension-de-los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="exploración-inicial.html#cb19-1" tabindex="-1"></a><span class="fu">dim</span>(datos)</span></code></pre></div>
+<pre><code>## [1] 569  32</code></pre>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="carga-de-datos.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="carga-de-datos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="limpieza-y-optimizacion-de-los-datos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

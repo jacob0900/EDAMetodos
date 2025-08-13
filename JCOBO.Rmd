@@ -1,23 +1,53 @@
-# Methods
+--- 
+title: "EDA METODOS"
+author: "Jacobo Londoño, Jesus David Barrios, Samuel Chamorro "
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+---
 
-We describe our methods in this chapter.
+# Presentacion del problema 
+En el dia de hoy mi grupo y yo daremos solcuion a un problema el cual perturba muchos hogares al rededor del mundo el cual es el cancer de mama, aunque por limitaciones dadas por el curso realizaremos un EDA basados en subconjunto de datos que se nos presenta.
+Este proyecto se dividira en 7 fases:
 
-Math can be added in body using usual syntax like this 
+1)Carga de datos
 
-## math example
+2)Exploración inicial
 
-$p$ is unknown but expected to be around 1/3. Standard error will be approximated
+3)Limpieza de datos
 
-$$
-SE = \sqrt{\frac{p(1-p)}{n}} \approx \sqrt{\frac{1/3 (1 - 1/3)} {300}} = 0.027
-$$
+4)Análisis univariante
 
-You can also use math in footnotes like this^[where we mention $p = \frac{a}{b}$].
+5)Análisis bivariante
 
-We will approximate standard error to 0.027[^longnote]
+6)Análisis multivariante
 
-[^longnote]: $p$ is unknown but expected to be around 1/3. Standard error will be approximated
+7)Posibles formas de proceder con la solucion de la problematica 
 
-    $$
-    SE = \sqrt{\frac{p(1-p)}{n}} \approx \sqrt{\frac{1/3 (1 - 1/3)} {300}} = 0.027
-    $$
+
+
+
+
+
+
+# Carga de datos
+
+En esta parte del book realizaremos la importacion del subconjunto de datos y ilustararemos a groso modo el estado en el que se encuentran los datos 
+```{r}
+url <- "https://raw.githubusercontent.com/jacob0900/EDAMetodos/main/wdbc.csv"
+datos <- read.csv(url, header = TRUE)
+
+
+head(datos)
+str(datos)
+dim(datos)
+```
+
+
+

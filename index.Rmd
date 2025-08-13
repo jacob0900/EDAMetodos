@@ -14,7 +14,7 @@ description: "This is a minimal example of using the bookdown package to write a
 
 # Presentacion del problema 
 En el dia de hoy mi grupo y yo daremos solcuion a un problema el cual perturba muchos hogares al rededor del mundo el cual es el cancer de mama, aunque por limitaciones dadas por el curso realizaremos un EDA basados en subconjunto de datos que se nos presenta.
-Este proyecto se dividira en 7 fases:
+Este proyecto se dividira en 8 fases:
 
 1)Carga de datos
 
@@ -28,7 +28,9 @@ Este proyecto se dividira en 7 fases:
 
 6)Análisis multivariante
 
-7)Posibles formas de proceder con la solucion de la problematica 
+7)Conclusiones
+
+8)Posibles formas de proceder con la solucion de la problematica 
 
 
 
@@ -42,9 +44,334 @@ En esta parte del book realizaremos la importacion del subconjunto de datos y il
 ```{r}
 url <- "https://raw.githubusercontent.com/jacob0900/EDAMetodos/main/wdbc.csv"
 datos <- read.csv(url, header = TRUE)
+ls()
+```
 
-# Verificar que cargó correctamente
+Despues de haber cargado el subconjunto de datos daramenos una organizacion y descripccion de las variables siempre recordando que nuestra piedra anugular de nuestro estudio es la variable "Diagnosis"
+
+
+```{r}
+# Cargar librerías necesarias para bookdown
+library(knitr)
+library(kableExtra)
+library(dplyr)# Manipulación de Datos
+library(ggplot2)# Visualización de datos 
+library(readxl)# Importación de datos
+library(tibble)# Tablas
+library(readr)#Para cargar base de datos
+
+# Crear el data frame con la información de las variables
+tabla_variables <- data.frame(
+  Variable = c(
+    "ID", "Diagnosis",
+    "radius1", "texture1", "perimeter1", "area1", "smoothness1", "compactness1", 
+    "concavity1", "concave_points1", "symmetry1", "fractal_dimension1",
+    "radius2", "texture2", "perimeter2", "area2", "smoothness2", "compactness2",
+    "concavity2", "concave_points2", "symmetry2", "fractal_dimension2",
+    "radius3", "texture3", "perimeter3", "area3", "smoothness3", "compactness3",
+    "concavity3", "concave_points3", "symmetry3", "fractal_dimension3"
+  ),
+  Tipo = c(
+    "Categórica nominal", "Categórica nominal",
+    rep("Numérica continua", 10),
+    rep("Numérica continua", 10),
+    rep("Numérica continua", 10)
+  ),
+  Definición = c(
+    "Identificador único de la muestra",
+    "Diagnóstico del tumor: Maligno (M) o Benigno (B)",
+    "Media de distancias desde el centro al perímetro del núcleo celular",
+    "Media de desviación estándar de valores de escala de grises",
+    "Media del perímetro del núcleo celular",
+    "Media del área del núcleo celular",
+    "Media de variación local en longitudes de radio",
+    "Media de compacidad (perímetro²/área - 1.0)",
+    "Media de severidad de porciones cóncavas del contorno",
+    "Media de número de porciones cóncavas del contorno",
+    "Media de simetría del núcleo celular",
+    "Media de dimensión fractal ('aproximación a la costa')",
+    "Error estándar de distancias desde el centro al perímetro",
+    "Error estándar de desviación estándar de valores de escala de grises",
+    "Error estándar del perímetro del núcleo celular",
+    "Error estándar del área del núcleo celular",
+    "Error estándar de variación local en longitudes de radio",
+    "Error estándar de compacidad (perímetro²/área - 1.0)",
+    "Error estándar de severidad de porciones cóncavas del contorno",
+    "Error estándar de número de porciones cóncavas del contorno",
+    "Error estándar de simetría del núcleo celular",
+    "Error estándar de dimensión fractal ('aproximación a la costa')",
+    "Mayor valor de distancias desde el centro al perímetro",
+    "Mayor valor de desviación estándar de valores de escala de grises",
+    "Mayor valor del perímetro del núcleo celular",
+    "Mayor valor del área del núcleo celular",
+    "Mayor valor de variación local en longitudes de radio",
+    "Mayor valor de compacidad (perímetro²/área - 1.0)",
+    "Mayor valor de severidad de porciones cóncavas del contorno",
+    "Mayor valor de número de porciones cóncavas del contorno",
+    "Mayor valor de simetría del núcleo celular",
+    "Mayor valor de dimensión fractal ('aproximación a la costa')"
+  ),
+  `Escala de Medición` = c(
+    "Nominal", "Nominal",
+    rep("Razón", 10),
+    rep("Razón", 10),
+    rep("Razón", 10)
+  ),
+  check.names = FALSE
+)
+
+# Crear tabla formateada para bookdown
+kable(tabla_variables, 
+      caption = "Descripción de Variables del Dataset WDBC (Wisconsin Diagnostic Breast Cancer)",
+      booktabs = TRUE,
+      longtable = TRUE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                latex_options = c("striped", "hold_position"),
+                full_width = FALSE,
+                font_size = 10) %>%
+  column_spec(1, bold = TRUE, width = "2.5cm") %>%
+  column_spec(2, width = "3cm") %>%
+  column_spec(3, width = "8cm") %>%
+  column_spec(4, width = "2cm")
+```
+
+# Exploración inicial
+
+## Impresion general de los datos 
+```{r}
 head(datos)
+ls()
+
+```
+
+## Inspeccion la estructura
+
+```{r}
 str(datos)
+
+```
+
+## Dimension de los datos 
+
+```{r}
 dim(datos)
 ```
+
+# Limpieza y optimizacion de los datos 
+
+## Optimizacion de los datos  
+
+En el conjunto de datos de cáncer de mama, hemos identificado que múltiples variables representan mediciones redundantes de las mismas características nucleares subyacentes, donde cada atributo principal se expresa a través de tres variantes estadísticas: la media (sufijo 1), el error estándar (sufijo 2) y el valor máximo (sufijo 3). Esta estructura crea redundancia sustancial, ya que las versiones de error estándar y valores máximos son derivadas directamente de las mediciones medias y no aportan información independiente sobre nuevas características biológicas. Para optimizar los procesos analíticos, evitando multicolinealidad y reduciendo dimensionalidad sin pérdida de información esencial, utilizaremos exclusivamente las siguientes 10 variables de media (sufijo 1) como representantes canónicas de cada atributo nuclear:
+
+Variables representativas seleccionadas:
+
+radius1 → Representa: radius1, radius2, radius3
+
+texture1 → Representa: texture1, texture2, texture3
+
+perimeter1 → Representa: perimeter1, perimeter2, perimeter3
+
+area1 → Representa: area1, area2, area3
+
+smoothness1 → Representa: smoothness1, smoothness2, smoothness3
+
+compactness1 → Representa: compactness1, compactness2, compactness3
+
+concavity1 → Representa: concavity1, concavity2, concavity3
+
+concave_points1 → Representa: concave_points1, concave_points2, concave_points3
+
+symmetry1 → Representa: symmetry1, symmetry2, symmetry3
+
+fractal_dimension1 → Representa: fractal_dimension1, fractal_dimension2, fractal_dimension3
+
+Este enfoque estratégico reduce el espacio de características de 30 a 10 variables clave, preservando el 100% de las características morfológicas fundamentales mientras mejora significativamente la eficiencia computacional. 
+
+
+
+
+## Limpieza de los datos
+
+### Valores restantes 
+
+En este insizo revisaremos los valores faltantes que contiene nuestro subconjunto de datos y propondremos una solucion a esta problematica 
+
+```{r}
+library(Amelia)
+
+missmap(datos)
+
+ls()
+```
+
+De manera casi milagrosa nuestro subconjunto de datos no presenta ningun tipo de valores faltantes. Por lo que no sera nesesario modificar nuestro subconjunto con ninguna tecnica.
+
+### Valores Atipicos 
+En esta parte revisaremos aquellos valores atipicos que se pueden generar y le daremos un tratamiento adecuado para poder culminar 
+
+#### Revision de la variables categoricas
+
+```{r}
+
+# Verificación de X0 (IDs únicos)
+cat("=== VERIFICACIÓN DE X0 (IDENTIFICADORES) ===\n")
+cat("Total de observaciones:", nrow(datos), "\n")
+cat("IDs únicos:", length(unique(datos$X0)), "\n")
+cat("¿Hay IDs duplicados?", ifelse(length(unique(datos$X0)) == nrow(datos), "NO", "SÍ"), "\n")
+
+if(length(unique(datos$X0)) != nrow(datos)) {
+  duplicados <- datos$X0[duplicated(datos$X0)]
+  cat("IDs duplicados:", unique(duplicados), "\n")
+}
+
+cat("\n=== VERIFICACIÓN DE X1 (DIAGNÓSTICO) ===\n")
+cat("Valores únicos en X1:", unique(datos$X1), "\n")
+cat("¿Solo contiene M y B?", ifelse(all(datos$X1 %in% c("M", "B")), "SÍ", "NO"), "\n")
+
+# Tabla de frecuencias de diagnósticos
+tabla_diagnostico <- table(datos$X1)
+cat("Distribución de diagnósticos:\n")
+print(tabla_diagnostico)
+
+# Porcentajes
+cat("Porcentajes:\n")
+print(round(prop.table(tabla_diagnostico) * 100, 2))
+```
+En este caso podemos obvservar que las variables categoricas no cuentan con valores atipicos ya que no hay ID repetidos y los todos diagnosticos estan en la
+categoria permitida 
+
+#### Revision de la variables numericas 
+
+```{r}
+# Cargar librerías necesarias
+library(ggplot2)
+library(reshape2)
+
+# Seleccionar columnas X2 a X11 (variables numéricas de media)
+variables_numericas <- paste0("X", 2:11)
+
+# Verificar que las variables existen
+print("Variables seleccionadas para análisis de outliers:")
+print(variables_numericas)
+print("¿Existen en el dataset?")
+print(variables_numericas %in% names(datos))
+
+# Seleccionar solo las columnas X2-X11 del dataset
+datos_outliers <- datos[, variables_numericas, drop = FALSE]
+
+# Transformar datos a formato largo para el gráfico
+datos_long <- reshape2::melt(datos_outliers, variable.name = "Variable", value.name = "Valor")
+
+# Crear boxplot para detectar outliers
+ggplot(datos_long, aes(x = Variable, y = Valor)) +
+  geom_boxplot(fill = "lightblue", alpha = 0.7, outlier.colour = "red", outlier.size = 1.5) +
+  facet_wrap(~Variable, scales = "free", ncol = 3) +
+  labs(title = "Detección de Valores Extremos por Variable (X2-X11)",
+       subtitle = "Los puntos rojos indican posibles outliers",
+       x = "Variables",
+       y = "Valores") +
+  theme_minimal() +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank())
+
+```
+Dada la presencia de escalas dispares (de 0.08 a 2500) y posibles valores atípicos en las variables (X2 a X11), como se observa en los gráficos con puntos rojos desplazados hacia extremos superiores, se decidió aplicar una transformación logarítmica para estabilizar la varianza, reducir el impacto de los outliers y homogeneizar los rangos intercuartílicos, evitando así sesgos al omitir o reemplazar datos. Esta elección es adecuada porque los datos parecen positivos y asimétricos a la derecha, lo que sugiere una distribución que se beneficiaría de la compresión de valores grandes y la normalización relativa, alineándose con el objetivo de facilitar análisis estadísticos sin perder representatividad.
+
+##### Sulucion al problema con las variables numericas 
+
+
+```{r}
+# Cargar librerías necesarias
+library(ggplot2)
+library(reshape2)
+library(gridExtra)
+
+# Variables a transformar (X2-X11)
+variables_numericas <- paste0("X", 2:11)
+
+# Verificar si hay valores negativos o cero (problema para log)
+cat("=== VERIFICACIÓN PREVIA A TRANSFORMACIÓN LOG ===\n")
+for(var in variables_numericas) {
+  min_val <- min(datos[[var]], na.rm = TRUE)
+  cat(var, "- Valor mínimo:", min_val, 
+      ifelse(min_val <= 0, " ⚠️ PROBLEMA PARA LOG", " ✓ OK para LOG"), "\n")
+}
+
+# Crear datos transformados con log (solo si todos los valores son positivos)
+datos_log <- datos
+for(var in variables_numericas) {
+  if(min(datos[[var]], na.rm = TRUE) > 0) {
+    datos_log[[paste0(var, "_log")]] <- log(datos[[var]])
+  } else {
+    # Si hay valores <= 0, usar log(x + constante)
+    constante <- abs(min(datos[[var]])) + 1
+    datos_log[[paste0(var, "_log")]] <- log(datos[[var]] + constante)
+    cat("Variable", var, "transformada con log(x +", constante, ")\n")
+  }
+}
+
+# Variables transformadas
+variables_log <- paste0(variables_numericas, "_log")
+
+# COMPARACIÓN: Datos originales vs transformados
+# Datos originales
+datos_orig_long <- reshape2::melt(datos[, variables_numericas], 
+                                  variable.name = "Variable", 
+                                  value.name = "Valor")
+datos_orig_long$Tipo <- "Original"
+
+# Datos transformados
+datos_log_long <- reshape2::melt(datos_log[, variables_log], 
+                                 variable.name = "Variable", 
+                                 value.name = "Valor")
+# Quitar "_log" del nombre para comparación
+datos_log_long$Variable <- gsub("_log", "", datos_log_long$Variable)
+datos_log_long$Tipo <- "Log transformado"
+
+# Combinar datos
+datos_comparacion <- rbind(datos_orig_long, datos_log_long)
+
+# Gráfico comparativo
+ggplot(datos_comparacion, aes(x = Variable, y = Valor, fill = Tipo)) +
+  geom_boxplot(alpha = 0.7, outlier.size = 1, outlier.alpha = 0.6) +
+  facet_grid(Tipo ~ Variable, scales = "free") +
+  labs(title = "Comparación: Datos Originales vs Transformación Logarítmica",
+       subtitle = "La transformación log reduce la dispersión y outliers",
+       x = "Variables (X2-X11)",
+       y = "Valores") +
+  theme_minimal() +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank()) +
+  scale_fill_manual(values = c("Original" = "lightcoral", 
+                               "Log transformado" = "lightblue"))
+
+# Estadísticas comparativas
+cat("\n=== COMPARACIÓN DE OUTLIERS: ANTES Y DESPUÉS ===\n")
+for(i in 1:length(variables_numericas)) {
+  var_orig <- variables_numericas[i]
+  var_log <- variables_log[i]
+  
+  # Outliers originales
+  Q1_orig <- quantile(datos[[var_orig]], 0.25)
+  Q3_orig <- quantile(datos[[var_orig]], 0.75)
+  IQR_orig <- Q3_orig - Q1_orig
+  outliers_orig <- sum(datos[[var_orig]] < (Q1_orig - 1.5*IQR_orig) | 
+                       datos[[var_orig]] > (Q3_orig + 1.5*IQR_orig))
+  
+  # Outliers transformados
+  Q1_log <- quantile(datos_log[[var_log]], 0.25)
+  Q3_log <- quantile(datos_log[[var_log]], 0.75)
+  IQR_log <- Q3_log - Q1_log
+  outliers_log <- sum(datos_log[[var_log]] < (Q1_log - 1.5*IQR_log) | 
+                      datos_log[[var_log]] > (Q3_log + 1.5*IQR_log))
+  
+  cat(var_orig, ":\n")
+  cat("  Outliers originales:", outliers_orig, "\n")
+  cat("  Outliers después de log:", outliers_log, "\n")
+  cat("  Reducción:", outliers_orig - outliers_log, 
+      "(", round((outliers_orig - outliers_log)/outliers_orig * 100, 1), "%)\n\n")
+}
+```
+
+
+

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Limpieza y optimizacion de los datos | EDA METODOS</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Limpieza y optimizacion de los datos | EDA METODOS" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Limpieza y optimizacion de los datos | EDA METODOS" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Jacobo Londoño, Jesus David Barrios, Samuel Chamorro" />
+
+
+<meta name="date" content="2025-08-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="exploración-inicial.html"/>
+<link rel="next" href="presentacion-del-problema-1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Presentacion del problema</a></li>
+<li class="chapter" data-level="2" data-path="carga-de-datos.html"><a href="carga-de-datos.html"><i class="fa fa-check"></i><b>2</b> Carga de datos</a></li>
+<li class="chapter" data-level="3" data-path="exploración-inicial.html"><a href="exploración-inicial.html"><i class="fa fa-check"></i><b>3</b> Exploración inicial</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="exploración-inicial.html"><a href="exploración-inicial.html#impresion-general-de-los-datos"><i class="fa fa-check"></i><b>3.1</b> Impresion general de los datos</a></li>
+<li class="chapter" data-level="3.2" data-path="exploración-inicial.html"><a href="exploración-inicial.html#inspeccion-la-estructura"><i class="fa fa-check"></i><b>3.2</b> Inspeccion la estructura</a></li>
+<li class="chapter" data-level="3.3" data-path="exploración-inicial.html"><a href="exploración-inicial.html#dimension-de-los-datos"><i class="fa fa-check"></i><b>3.3</b> Dimension de los datos</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="limpieza-y-optimizacion-de-los-datos.html"><a href="limpieza-y-optimizacion-de-los-datos.html"><i class="fa fa-check"></i><b>4</b> Limpieza y optimizacion de los datos</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="limpieza-y-optimizacion-de-los-datos.html"><a href="limpieza-y-optimizacion-de-los-datos.html#optimizacion-de-los-datos"><i class="fa fa-check"></i><b>4.1</b> Optimizacion de los datos</a></li>
+<li class="chapter" data-level="4.2" data-path="limpieza-y-optimizacion-de-los-datos.html"><a href="limpieza-y-optimizacion-de-los-datos.html#limpieza-de-los-datos"><i class="fa fa-check"></i><b>4.2</b> Limpieza de los datos</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="limpieza-y-optimizacion-de-los-datos.html"><a href="limpieza-y-optimizacion-de-los-datos.html#valores-restantes"><i class="fa fa-check"></i><b>4.2.1</b> Valores restantes</a></li>
+<li class="chapter" data-level="4.2.2" data-path="limpieza-y-optimizacion-de-los-datos.html"><a href="limpieza-y-optimizacion-de-los-datos.html#valores-atipicos"><i class="fa fa-check"></i><b>4.2.2</b> Valores Atipicos</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="presentacion-del-problema-1.html"><a href="presentacion-del-problema-1.html"><i class="fa fa-check"></i><b>5</b> Presentacion del problema</a></li>
+<li class="chapter" data-level="6" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>6</b> Literature</a></li>
+<li class="chapter" data-level="7" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>7</b> Introduction</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EDA METODOS</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="limpieza-y-optimizacion-de-los-datos" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Limpieza y optimizacion de los datos<a href="limpieza-y-optimizacion-de-los-datos.html#limpieza-y-optimizacion-de-los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="optimizacion-de-los-datos" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Optimizacion de los datos<a href="limpieza-y-optimizacion-de-los-datos.html#optimizacion-de-los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En el conjunto de datos de cáncer de mama, hemos identificado que múltiples variables representan mediciones redundantes de las mismas características nucleares subyacentes, donde cada atributo principal se expresa a través de tres variantes estadísticas: la media (sufijo 1), el error estándar (sufijo 2) y el valor máximo (sufijo 3). Esta estructura crea redundancia sustancial, ya que las versiones de error estándar y valores máximos son derivadas directamente de las mediciones medias y no aportan información independiente sobre nuevas características biológicas. Para optimizar los procesos analíticos, evitando multicolinealidad y reduciendo dimensionalidad sin pérdida de información esencial, utilizaremos exclusivamente las siguientes 10 variables de media (sufijo 1) como representantes canónicas de cada atributo nuclear:</p>
+<p>Variables representativas seleccionadas:</p>
+<p>radius1 → Representa: radius1, radius2, radius3</p>
+<p>texture1 → Representa: texture1, texture2, texture3</p>
+<p>perimeter1 → Representa: perimeter1, perimeter2, perimeter3</p>
+<p>area1 → Representa: area1, area2, area3</p>
+<p>smoothness1 → Representa: smoothness1, smoothness2, smoothness3</p>
+<p>compactness1 → Representa: compactness1, compactness2, compactness3</p>
+<p>concavity1 → Representa: concavity1, concavity2, concavity3</p>
+<p>concave_points1 → Representa: concave_points1, concave_points2, concave_points3</p>
+<p>symmetry1 → Representa: symmetry1, symmetry2, symmetry3</p>
+<p>fractal_dimension1 → Representa: fractal_dimension1, fractal_dimension2, fractal_dimension3</p>
+<p>Este enfoque estratégico reduce el espacio de características de 30 a 10 variables clave, preservando el 100% de las características morfológicas fundamentales mientras mejora significativamente la eficiencia computacional.</p>
+</div>
+<div id="limpieza-de-los-datos" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Limpieza de los datos<a href="limpieza-y-optimizacion-de-los-datos.html#limpieza-de-los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="valores-restantes" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Valores restantes<a href="limpieza-y-optimizacion-de-los-datos.html#valores-restantes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En este insizo revisaremos los valores faltantes que contiene nuestro subconjunto de datos y propondremos una solucion a esta problematica</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb21-1" tabindex="-1"></a><span class="fu">library</span>(Amelia)</span></code></pre></div>
+<pre><code>## Warning: package &#39;Amelia&#39; was built under R version 4.4.3</code></pre>
+<pre><code>## Cargando paquete requerido: Rcpp</code></pre>
+<pre><code>## ## 
+## ## Amelia II: Multiple Imputation
+## ## (Version 1.8.3, built: 2024-11-07)
+## ## Copyright (C) 2005-2025 James Honaker, Gary King and Matthew Blackwell
+## ## Refer to http://gking.harvard.edu/amelia/ for more information
+## ##</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb25-1" tabindex="-1"></a><span class="fu">missmap</span>(datos)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb26-1" tabindex="-1"></a><span class="fu">ls</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;datos&quot;           &quot;tabla_variables&quot; &quot;url&quot;</code></pre>
+<p>De manera casi milagrosa nuestro subconjunto de datos no presenta ningun tipo de valores faltantes. Por lo que no sera nesesario modificar nuestro subconjunto con ninguna tecnica.</p>
+</div>
+<div id="valores-atipicos" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Valores Atipicos<a href="limpieza-y-optimizacion-de-los-datos.html#valores-atipicos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En esta parte revisaremos aquellos valores atipicos que se pueden generar y le daremos un tratamiento adecuado para poder culminar</p>
+<div id="revision-de-la-variables-categoricas" class="section level4 hasAnchor" number="4.2.2.1">
+<h4><span class="header-section-number">4.2.2.1</span> Revision de la variables categoricas<a href="limpieza-y-optimizacion-de-los-datos.html#revision-de-la-variables-categoricas" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb28-1" tabindex="-1"></a><span class="co"># Verificación de X0 (IDs únicos)</span></span>
+<span id="cb28-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb28-2" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;=== VERIFICACIÓN DE X0 (IDENTIFICADORES) ===</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## === VERIFICACIÓN DE X0 (IDENTIFICADORES) ===</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb30-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Total de observaciones:&quot;</span>, <span class="fu">nrow</span>(datos), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Total de observaciones: 569</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb32-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;IDs únicos:&quot;</span>, <span class="fu">length</span>(<span class="fu">unique</span>(datos<span class="sc">$</span>X0)), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## IDs únicos: 569</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb34-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;¿Hay IDs duplicados?&quot;</span>, <span class="fu">ifelse</span>(<span class="fu">length</span>(<span class="fu">unique</span>(datos<span class="sc">$</span>X0)) <span class="sc">==</span> <span class="fu">nrow</span>(datos), <span class="st">&quot;NO&quot;</span>, <span class="st">&quot;SÍ&quot;</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## ¿Hay IDs duplicados? NO</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb36-1" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">length</span>(<span class="fu">unique</span>(datos<span class="sc">$</span>X0)) <span class="sc">!=</span> <span class="fu">nrow</span>(datos)) {</span>
+<span id="cb36-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb36-2" tabindex="-1"></a>  duplicados <span class="ot">&lt;-</span> datos<span class="sc">$</span>X0[<span class="fu">duplicated</span>(datos<span class="sc">$</span>X0)]</span>
+<span id="cb36-3"><a href="limpieza-y-optimizacion-de-los-datos.html#cb36-3" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;IDs duplicados:&quot;</span>, <span class="fu">unique</span>(duplicados), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb36-4"><a href="limpieza-y-optimizacion-de-los-datos.html#cb36-4" tabindex="-1"></a>}</span>
+<span id="cb36-5"><a href="limpieza-y-optimizacion-de-los-datos.html#cb36-5" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="limpieza-y-optimizacion-de-los-datos.html#cb36-6" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">=== VERIFICACIÓN DE X1 (DIAGNÓSTICO) ===</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## === VERIFICACIÓN DE X1 (DIAGNÓSTICO) ===</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb38-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Valores únicos en X1:&quot;</span>, <span class="fu">unique</span>(datos<span class="sc">$</span>X1), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Valores únicos en X1: M B</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb40-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;¿Solo contiene M y B?&quot;</span>, <span class="fu">ifelse</span>(<span class="fu">all</span>(datos<span class="sc">$</span>X1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;B&quot;</span>)), <span class="st">&quot;SÍ&quot;</span>, <span class="st">&quot;NO&quot;</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## ¿Solo contiene M y B? SÍ</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb42-1" tabindex="-1"></a><span class="co"># Tabla de frecuencias de diagnósticos</span></span>
+<span id="cb42-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb42-2" tabindex="-1"></a>tabla_diagnostico <span class="ot">&lt;-</span> <span class="fu">table</span>(datos<span class="sc">$</span>X1)</span>
+<span id="cb42-3"><a href="limpieza-y-optimizacion-de-los-datos.html#cb42-3" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Distribución de diagnósticos:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Distribución de diagnósticos:</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb44-1" tabindex="-1"></a><span class="fu">print</span>(tabla_diagnostico)</span></code></pre></div>
+<pre><code>## 
+##   B   M 
+## 357 212</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb46-1" tabindex="-1"></a><span class="co"># Porcentajes</span></span>
+<span id="cb46-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb46-2" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Porcentajes:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Porcentajes:</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb48-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(<span class="fu">prop.table</span>(tabla_diagnostico) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## 
+##     B     M 
+## 62.74 37.26</code></pre>
+<p>En este caso podemos obvservar que las variables categoricas no cuentan con valores atipicos ya que no hay ID repetidos y los todos diagnosticos estan en la
+categoria permitida</p>
+</div>
+<div id="revision-de-la-variables-numericas" class="section level4 hasAnchor" number="4.2.2.2">
+<h4><span class="header-section-number">4.2.2.2</span> Revision de la variables numericas<a href="limpieza-y-optimizacion-de-los-datos.html#revision-de-la-variables-numericas" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb50-1" tabindex="-1"></a><span class="co"># Cargar librerías necesarias</span></span>
+<span id="cb50-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb50-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb50-3"><a href="limpieza-y-optimizacion-de-los-datos.html#cb50-3" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span></code></pre></div>
+<pre><code>## Warning: package &#39;reshape2&#39; was built under R version 4.4.3</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb52-1" tabindex="-1"></a><span class="co"># Seleccionar columnas X2 a X11 (variables numéricas de media)</span></span>
+<span id="cb52-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb52-2" tabindex="-1"></a>variables_numericas <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;X&quot;</span>, <span class="dv">2</span><span class="sc">:</span><span class="dv">11</span>)</span>
+<span id="cb52-3"><a href="limpieza-y-optimizacion-de-los-datos.html#cb52-3" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="limpieza-y-optimizacion-de-los-datos.html#cb52-4" tabindex="-1"></a><span class="co"># Verificar que las variables existen</span></span>
+<span id="cb52-5"><a href="limpieza-y-optimizacion-de-los-datos.html#cb52-5" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Variables seleccionadas para análisis de outliers:&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Variables seleccionadas para análisis de outliers:&quot;</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb54-1" tabindex="-1"></a><span class="fu">print</span>(variables_numericas)</span></code></pre></div>
+<pre><code>##  [1] &quot;X2&quot;  &quot;X3&quot;  &quot;X4&quot;  &quot;X5&quot;  &quot;X6&quot;  &quot;X7&quot;  &quot;X8&quot;  &quot;X9&quot;  &quot;X10&quot; &quot;X11&quot;</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb56-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;¿Existen en el dataset?&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;¿Existen en el dataset?&quot;</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb58-1" tabindex="-1"></a><span class="fu">print</span>(variables_numericas <span class="sc">%in%</span> <span class="fu">names</span>(datos))</span></code></pre></div>
+<pre><code>##  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb60-1" tabindex="-1"></a><span class="co"># Seleccionar solo las columnas X2-X11 del dataset</span></span>
+<span id="cb60-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb60-2" tabindex="-1"></a>datos_outliers <span class="ot">&lt;-</span> datos[, variables_numericas, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb60-3"><a href="limpieza-y-optimizacion-de-los-datos.html#cb60-3" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="limpieza-y-optimizacion-de-los-datos.html#cb60-4" tabindex="-1"></a><span class="co"># Transformar datos a formato largo para el gráfico</span></span>
+<span id="cb60-5"><a href="limpieza-y-optimizacion-de-los-datos.html#cb60-5" tabindex="-1"></a>datos_long <span class="ot">&lt;-</span> reshape2<span class="sc">::</span><span class="fu">melt</span>(datos_outliers, <span class="at">variable.name =</span> <span class="st">&quot;Variable&quot;</span>, <span class="at">value.name =</span> <span class="st">&quot;Valor&quot;</span>)</span></code></pre></div>
+<pre><code>## No id variables; using all as measure variables</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb62-1" tabindex="-1"></a><span class="co"># Crear boxplot para detectar outliers</span></span>
+<span id="cb62-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb62-2" tabindex="-1"></a><span class="fu">ggplot</span>(datos_long, <span class="fu">aes</span>(<span class="at">x =</span> Variable, <span class="at">y =</span> Valor)) <span class="sc">+</span></span>
+<span id="cb62-3"><a href="limpieza-y-optimizacion-de-los-datos.html#cb62-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">outlier.size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb62-4"><a href="limpieza-y-optimizacion-de-los-datos.html#cb62-4" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Variable, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb62-5"><a href="limpieza-y-optimizacion-de-los-datos.html#cb62-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Detección de Valores Extremos por Variable (X2-X11)&quot;</span>,</span>
+<span id="cb62-6"><a href="limpieza-y-optimizacion-de-los-datos.html#cb62-6" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Los puntos rojos indican posibles outliers&quot;</span>,</span>
+<span id="cb62-7"><a href="limpieza-y-optimizacion-de-los-datos.html#cb62-7" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Variables&quot;</span>,</span>
+<span id="cb62-8"><a href="limpieza-y-optimizacion-de-los-datos.html#cb62-8" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Valores&quot;</span>) <span class="sc">+</span></span>
+<span id="cb62-9"><a href="limpieza-y-optimizacion-de-los-datos.html#cb62-9" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb62-10"><a href="limpieza-y-optimizacion-de-los-datos.html#cb62-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb62-11"><a href="limpieza-y-optimizacion-de-los-datos.html#cb62-11" tabindex="-1"></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+Dada la presencia de escalas dispares (de 0.08 a 2500) y posibles valores atípicos en las variables (X2 a X11), como se observa en los gráficos con puntos rojos desplazados hacia extremos superiores, se decidió aplicar una transformación logarítmica para estabilizar la varianza, reducir el impacto de los outliers y homogeneizar los rangos intercuartílicos, evitando así sesgos al omitir o reemplazar datos. Esta elección es adecuada porque los datos parecen positivos y asimétricos a la derecha, lo que sugiere una distribución que se beneficiaría de la compresión de valores grandes y la normalización relativa, alineándose con el objetivo de facilitar análisis estadísticos sin perder representatividad.</p>
+<div id="sulucion-al-problema-con-las-variables-numericas" class="section level5 hasAnchor" number="4.2.2.2.1">
+<h5><span class="header-section-number">4.2.2.2.1</span> Sulucion al problema con las variables numericas<a href="limpieza-y-optimizacion-de-los-datos.html#sulucion-al-problema-con-las-variables-numericas" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb63-1" tabindex="-1"></a><span class="co"># Cargar librerías necesarias</span></span>
+<span id="cb63-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb63-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb63-3"><a href="limpieza-y-optimizacion-de-los-datos.html#cb63-3" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb63-4"><a href="limpieza-y-optimizacion-de-los-datos.html#cb63-4" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span></code></pre></div>
+<pre><code>## Warning: package &#39;gridExtra&#39; was built under R version 4.4.3</code></pre>
+<pre><code>## 
+## Adjuntando el paquete: &#39;gridExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     combine</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb67-1" tabindex="-1"></a><span class="co"># Variables a transformar (X2-X11)</span></span>
+<span id="cb67-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb67-2" tabindex="-1"></a>variables_numericas <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;X&quot;</span>, <span class="dv">2</span><span class="sc">:</span><span class="dv">11</span>)</span>
+<span id="cb67-3"><a href="limpieza-y-optimizacion-de-los-datos.html#cb67-3" tabindex="-1"></a></span>
+<span id="cb67-4"><a href="limpieza-y-optimizacion-de-los-datos.html#cb67-4" tabindex="-1"></a><span class="co"># Verificar si hay valores negativos o cero (problema para log)</span></span>
+<span id="cb67-5"><a href="limpieza-y-optimizacion-de-los-datos.html#cb67-5" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;=== VERIFICACIÓN PREVIA A TRANSFORMACIÓN LOG ===</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## === VERIFICACIÓN PREVIA A TRANSFORMACIÓN LOG ===</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb69-1" tabindex="-1"></a><span class="cf">for</span>(var <span class="cf">in</span> variables_numericas) {</span>
+<span id="cb69-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb69-2" tabindex="-1"></a>  min_val <span class="ot">&lt;-</span> <span class="fu">min</span>(datos[[var]], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb69-3"><a href="limpieza-y-optimizacion-de-los-datos.html#cb69-3" tabindex="-1"></a>  <span class="fu">cat</span>(var, <span class="st">&quot;- Valor mínimo:&quot;</span>, min_val, </span>
+<span id="cb69-4"><a href="limpieza-y-optimizacion-de-los-datos.html#cb69-4" tabindex="-1"></a>      <span class="fu">ifelse</span>(min_val <span class="sc">&lt;=</span> <span class="dv">0</span>, <span class="st">&quot; ⚠️ PROBLEMA PARA LOG&quot;</span>, <span class="st">&quot; ✓ OK para LOG&quot;</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb69-5"><a href="limpieza-y-optimizacion-de-los-datos.html#cb69-5" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## X2 - Valor mínimo: 6.981  ✓ OK para LOG 
+## X3 - Valor mínimo: 9.71  ✓ OK para LOG 
+## X4 - Valor mínimo: 43.79  ✓ OK para LOG 
+## X5 - Valor mínimo: 143.5  ✓ OK para LOG 
+## X6 - Valor mínimo: 0.05263  ✓ OK para LOG 
+## X7 - Valor mínimo: 0.01938  ✓ OK para LOG 
+## X8 - Valor mínimo: 0  ⚠️ PROBLEMA PARA LOG 
+## X9 - Valor mínimo: 0  ⚠️ PROBLEMA PARA LOG 
+## X10 - Valor mínimo: 0.106  ✓ OK para LOG 
+## X11 - Valor mínimo: 0.04996  ✓ OK para LOG</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb71-1" tabindex="-1"></a><span class="co"># Crear datos transformados con log (solo si todos los valores son positivos)</span></span>
+<span id="cb71-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb71-2" tabindex="-1"></a>datos_log <span class="ot">&lt;-</span> datos</span>
+<span id="cb71-3"><a href="limpieza-y-optimizacion-de-los-datos.html#cb71-3" tabindex="-1"></a><span class="cf">for</span>(var <span class="cf">in</span> variables_numericas) {</span>
+<span id="cb71-4"><a href="limpieza-y-optimizacion-de-los-datos.html#cb71-4" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">min</span>(datos[[var]], <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb71-5"><a href="limpieza-y-optimizacion-de-los-datos.html#cb71-5" tabindex="-1"></a>    datos_log[[<span class="fu">paste0</span>(var, <span class="st">&quot;_log&quot;</span>)]] <span class="ot">&lt;-</span> <span class="fu">log</span>(datos[[var]])</span>
+<span id="cb71-6"><a href="limpieza-y-optimizacion-de-los-datos.html#cb71-6" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb71-7"><a href="limpieza-y-optimizacion-de-los-datos.html#cb71-7" tabindex="-1"></a>    <span class="co"># Si hay valores &lt;= 0, usar log(x + constante)</span></span>
+<span id="cb71-8"><a href="limpieza-y-optimizacion-de-los-datos.html#cb71-8" tabindex="-1"></a>    constante <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">min</span>(datos[[var]])) <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb71-9"><a href="limpieza-y-optimizacion-de-los-datos.html#cb71-9" tabindex="-1"></a>    datos_log[[<span class="fu">paste0</span>(var, <span class="st">&quot;_log&quot;</span>)]] <span class="ot">&lt;-</span> <span class="fu">log</span>(datos[[var]] <span class="sc">+</span> constante)</span>
+<span id="cb71-10"><a href="limpieza-y-optimizacion-de-los-datos.html#cb71-10" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&quot;Variable&quot;</span>, var, <span class="st">&quot;transformada con log(x +&quot;</span>, constante, <span class="st">&quot;)</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb71-11"><a href="limpieza-y-optimizacion-de-los-datos.html#cb71-11" tabindex="-1"></a>  }</span>
+<span id="cb71-12"><a href="limpieza-y-optimizacion-de-los-datos.html#cb71-12" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## Variable X8 transformada con log(x + 1 )
+## Variable X9 transformada con log(x + 1 )</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb73-1" tabindex="-1"></a><span class="co"># Variables transformadas</span></span>
+<span id="cb73-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb73-2" tabindex="-1"></a>variables_log <span class="ot">&lt;-</span> <span class="fu">paste0</span>(variables_numericas, <span class="st">&quot;_log&quot;</span>)</span>
+<span id="cb73-3"><a href="limpieza-y-optimizacion-de-los-datos.html#cb73-3" tabindex="-1"></a></span>
+<span id="cb73-4"><a href="limpieza-y-optimizacion-de-los-datos.html#cb73-4" tabindex="-1"></a><span class="co"># COMPARACIÓN: Datos originales vs transformados</span></span>
+<span id="cb73-5"><a href="limpieza-y-optimizacion-de-los-datos.html#cb73-5" tabindex="-1"></a><span class="co"># Datos originales</span></span>
+<span id="cb73-6"><a href="limpieza-y-optimizacion-de-los-datos.html#cb73-6" tabindex="-1"></a>datos_orig_long <span class="ot">&lt;-</span> reshape2<span class="sc">::</span><span class="fu">melt</span>(datos[, variables_numericas], </span>
+<span id="cb73-7"><a href="limpieza-y-optimizacion-de-los-datos.html#cb73-7" tabindex="-1"></a>                                  <span class="at">variable.name =</span> <span class="st">&quot;Variable&quot;</span>, </span>
+<span id="cb73-8"><a href="limpieza-y-optimizacion-de-los-datos.html#cb73-8" tabindex="-1"></a>                                  <span class="at">value.name =</span> <span class="st">&quot;Valor&quot;</span>)</span></code></pre></div>
+<pre><code>## No id variables; using all as measure variables</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb75-1" tabindex="-1"></a>datos_orig_long<span class="sc">$</span>Tipo <span class="ot">&lt;-</span> <span class="st">&quot;Original&quot;</span></span>
+<span id="cb75-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb75-2" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="limpieza-y-optimizacion-de-los-datos.html#cb75-3" tabindex="-1"></a><span class="co"># Datos transformados</span></span>
+<span id="cb75-4"><a href="limpieza-y-optimizacion-de-los-datos.html#cb75-4" tabindex="-1"></a>datos_log_long <span class="ot">&lt;-</span> reshape2<span class="sc">::</span><span class="fu">melt</span>(datos_log[, variables_log], </span>
+<span id="cb75-5"><a href="limpieza-y-optimizacion-de-los-datos.html#cb75-5" tabindex="-1"></a>                                 <span class="at">variable.name =</span> <span class="st">&quot;Variable&quot;</span>, </span>
+<span id="cb75-6"><a href="limpieza-y-optimizacion-de-los-datos.html#cb75-6" tabindex="-1"></a>                                 <span class="at">value.name =</span> <span class="st">&quot;Valor&quot;</span>)</span></code></pre></div>
+<pre><code>## No id variables; using all as measure variables</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-1" tabindex="-1"></a><span class="co"># Quitar &quot;_log&quot; del nombre para comparación</span></span>
+<span id="cb77-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-2" tabindex="-1"></a>datos_log_long<span class="sc">$</span>Variable <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;_log&quot;</span>, <span class="st">&quot;&quot;</span>, datos_log_long<span class="sc">$</span>Variable)</span>
+<span id="cb77-3"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-3" tabindex="-1"></a>datos_log_long<span class="sc">$</span>Tipo <span class="ot">&lt;-</span> <span class="st">&quot;Log transformado&quot;</span></span>
+<span id="cb77-4"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-4" tabindex="-1"></a></span>
+<span id="cb77-5"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-5" tabindex="-1"></a><span class="co"># Combinar datos</span></span>
+<span id="cb77-6"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-6" tabindex="-1"></a>datos_comparacion <span class="ot">&lt;-</span> <span class="fu">rbind</span>(datos_orig_long, datos_log_long)</span>
+<span id="cb77-7"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-7" tabindex="-1"></a></span>
+<span id="cb77-8"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-8" tabindex="-1"></a><span class="co"># Gráfico comparativo</span></span>
+<span id="cb77-9"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-9" tabindex="-1"></a><span class="fu">ggplot</span>(datos_comparacion, <span class="fu">aes</span>(<span class="at">x =</span> Variable, <span class="at">y =</span> Valor, <span class="at">fill =</span> Tipo)) <span class="sc">+</span></span>
+<span id="cb77-10"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-10" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.size =</span> <span class="dv">1</span>, <span class="at">outlier.alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb77-11"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-11" tabindex="-1"></a>  <span class="fu">facet_grid</span>(Tipo <span class="sc">~</span> Variable, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb77-12"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Comparación: Datos Originales vs Transformación Logarítmica&quot;</span>,</span>
+<span id="cb77-13"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-13" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;La transformación log reduce la dispersión y outliers&quot;</span>,</span>
+<span id="cb77-14"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-14" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Variables (X2-X11)&quot;</span>,</span>
+<span id="cb77-15"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-15" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Valores&quot;</span>) <span class="sc">+</span></span>
+<span id="cb77-16"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-16" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb77-17"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb77-18"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-18" tabindex="-1"></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb77-19"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-19" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Original&quot;</span> <span class="ot">=</span> <span class="st">&quot;lightcoral&quot;</span>, </span>
+<span id="cb77-20"><a href="limpieza-y-optimizacion-de-los-datos.html#cb77-20" tabindex="-1"></a>                               <span class="st">&quot;Log transformado&quot;</span> <span class="ot">=</span> <span class="st">&quot;lightblue&quot;</span>))</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb78-1" tabindex="-1"></a><span class="co"># Estadísticas comparativas</span></span>
+<span id="cb78-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb78-2" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">=== COMPARACIÓN DE OUTLIERS: ANTES Y DESPUÉS ===</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## === COMPARACIÓN DE OUTLIERS: ANTES Y DESPUÉS ===</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-1" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(variables_numericas)) {</span>
+<span id="cb80-2"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-2" tabindex="-1"></a>  var_orig <span class="ot">&lt;-</span> variables_numericas[i]</span>
+<span id="cb80-3"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-3" tabindex="-1"></a>  var_log <span class="ot">&lt;-</span> variables_log[i]</span>
+<span id="cb80-4"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-4" tabindex="-1"></a>  </span>
+<span id="cb80-5"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-5" tabindex="-1"></a>  <span class="co"># Outliers originales</span></span>
+<span id="cb80-6"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-6" tabindex="-1"></a>  Q1_orig <span class="ot">&lt;-</span> <span class="fu">quantile</span>(datos[[var_orig]], <span class="fl">0.25</span>)</span>
+<span id="cb80-7"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-7" tabindex="-1"></a>  Q3_orig <span class="ot">&lt;-</span> <span class="fu">quantile</span>(datos[[var_orig]], <span class="fl">0.75</span>)</span>
+<span id="cb80-8"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-8" tabindex="-1"></a>  IQR_orig <span class="ot">&lt;-</span> Q3_orig <span class="sc">-</span> Q1_orig</span>
+<span id="cb80-9"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-9" tabindex="-1"></a>  outliers_orig <span class="ot">&lt;-</span> <span class="fu">sum</span>(datos[[var_orig]] <span class="sc">&lt;</span> (Q1_orig <span class="sc">-</span> <span class="fl">1.5</span><span class="sc">*</span>IQR_orig) <span class="sc">|</span> </span>
+<span id="cb80-10"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-10" tabindex="-1"></a>                       datos[[var_orig]] <span class="sc">&gt;</span> (Q3_orig <span class="sc">+</span> <span class="fl">1.5</span><span class="sc">*</span>IQR_orig))</span>
+<span id="cb80-11"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-11" tabindex="-1"></a>  </span>
+<span id="cb80-12"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-12" tabindex="-1"></a>  <span class="co"># Outliers transformados</span></span>
+<span id="cb80-13"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-13" tabindex="-1"></a>  Q1_log <span class="ot">&lt;-</span> <span class="fu">quantile</span>(datos_log[[var_log]], <span class="fl">0.25</span>)</span>
+<span id="cb80-14"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-14" tabindex="-1"></a>  Q3_log <span class="ot">&lt;-</span> <span class="fu">quantile</span>(datos_log[[var_log]], <span class="fl">0.75</span>)</span>
+<span id="cb80-15"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-15" tabindex="-1"></a>  IQR_log <span class="ot">&lt;-</span> Q3_log <span class="sc">-</span> Q1_log</span>
+<span id="cb80-16"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-16" tabindex="-1"></a>  outliers_log <span class="ot">&lt;-</span> <span class="fu">sum</span>(datos_log[[var_log]] <span class="sc">&lt;</span> (Q1_log <span class="sc">-</span> <span class="fl">1.5</span><span class="sc">*</span>IQR_log) <span class="sc">|</span> </span>
+<span id="cb80-17"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-17" tabindex="-1"></a>                      datos_log[[var_log]] <span class="sc">&gt;</span> (Q3_log <span class="sc">+</span> <span class="fl">1.5</span><span class="sc">*</span>IQR_log))</span>
+<span id="cb80-18"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-18" tabindex="-1"></a>  </span>
+<span id="cb80-19"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-19" tabindex="-1"></a>  <span class="fu">cat</span>(var_orig, <span class="st">&quot;:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb80-20"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-20" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;  Outliers originales:&quot;</span>, outliers_orig, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb80-21"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-21" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;  Outliers después de log:&quot;</span>, outliers_log, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb80-22"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-22" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;  Reducción:&quot;</span>, outliers_orig <span class="sc">-</span> outliers_log, </span>
+<span id="cb80-23"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-23" tabindex="-1"></a>      <span class="st">&quot;(&quot;</span>, <span class="fu">round</span>((outliers_orig <span class="sc">-</span> outliers_log)<span class="sc">/</span>outliers_orig <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>), <span class="st">&quot;%)</span><span class="sc">\n\n</span><span class="st">&quot;</span>)</span>
+<span id="cb80-24"><a href="limpieza-y-optimizacion-de-los-datos.html#cb80-24" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## X2 :
+##   Outliers originales: 14 
+##   Outliers después de log: 6 
+##   Reducción: 8 ( 57.1 %)
+## 
+## X3 :
+##   Outliers originales: 7 
+##   Outliers después de log: 2 
+##   Reducción: 5 ( 71.4 %)
+## 
+## X4 :
+##   Outliers originales: 13 
+##   Outliers después de log: 6 
+##   Reducción: 7 ( 53.8 %)
+## 
+## X5 :
+##   Outliers originales: 25 
+##   Outliers después de log: 5 
+##   Reducción: 20 ( 80 %)
+## 
+## X6 :
+##   Outliers originales: 6 
+##   Outliers después de log: 5 
+##   Reducción: 1 ( 16.7 %)
+## 
+## X7 :
+##   Outliers originales: 16 
+##   Outliers después de log: 1 
+##   Reducción: 15 ( 93.8 %)
+## 
+## X8 :
+##   Outliers originales: 18 
+##   Outliers después de log: 14 
+##   Reducción: 4 ( 22.2 %)
+## 
+## X9 :
+##   Outliers originales: 10 
+##   Outliers después de log: 8 
+##   Reducción: 2 ( 20 %)
+## 
+## X10 :
+##   Outliers originales: 15 
+##   Outliers después de log: 9 
+##   Reducción: 6 ( 40 %)
+## 
+## X11 :
+##   Outliers originales: 15 
+##   Outliers después de log: 11 
+##   Reducción: 4 ( 26.7 %)</code></pre>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exploración-inicial.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="presentacion-del-problema-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

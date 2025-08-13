@@ -23,7 +23,7 @@
 <meta name="author" content="Jacobo Londoño, Jesus David Barrios, Samuel Chamorro" />
 
 
-<meta name="date" content="2025-08-12" />
+<meta name="date" content="2025-08-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="index.html"/>
-
+<link rel="next" href="exploración-inicial.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -52,6 +52,10 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 
 
 <style type="text/css">
@@ -123,6 +127,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -142,6 +169,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Presentacion del problema</a></li>
 <li class="chapter" data-level="2" data-path="carga-de-datos.html"><a href="carga-de-datos.html"><i class="fa fa-check"></i><b>2</b> Carga de datos</a></li>
+<li class="chapter" data-level="3" data-path="exploración-inicial.html"><a href="exploración-inicial.html"><i class="fa fa-check"></i><b>3</b> Exploración inicial</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="exploración-inicial.html"><a href="exploración-inicial.html#impresion-general-de-los-datos"><i class="fa fa-check"></i><b>3.1</b> Impresion general de los datos</a></li>
+<li class="chapter" data-level="3.2" data-path="exploración-inicial.html"><a href="exploración-inicial.html#inspeccion-la-estructura"><i class="fa fa-check"></i><b>3.2</b> Inspeccion la estructura</a></li>
+<li class="chapter" data-level="3.3" data-path="exploración-inicial.html"><a href="exploración-inicial.html#dimension-de-los-datos"><i class="fa fa-check"></i><b>3.3</b> Dimension de los datos</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="limpieza-y-optimizacion-de-los-datos.html"><a href="limpieza-y-optimizacion-de-los-datos.html"><i class="fa fa-check"></i><b>4</b> Limpieza y optimizacion de los datos</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="limpieza-y-optimizacion-de-los-datos.html"><a href="limpieza-y-optimizacion-de-los-datos.html#optimizacion-de-los-datos"><i class="fa fa-check"></i><b>4.1</b> Optimizacion de los datos</a></li>
+<li class="chapter" data-level="4.2" data-path="limpieza-y-optimizacion-de-los-datos.html"><a href="limpieza-y-optimizacion-de-los-datos.html#limpieza-de-los-datos"><i class="fa fa-check"></i><b>4.2</b> Limpieza de los datos</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="limpieza-y-optimizacion-de-los-datos.html"><a href="limpieza-y-optimizacion-de-los-datos.html#valores-restantes"><i class="fa fa-check"></i><b>4.2.1</b> Valores restantes</a></li>
+<li class="chapter" data-level="4.2.2" data-path="limpieza-y-optimizacion-de-los-datos.html"><a href="limpieza-y-optimizacion-de-los-datos.html#valores-atipicos"><i class="fa fa-check"></i><b>4.2.2</b> Valores Atipicos</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="presentacion-del-problema-1.html"><a href="presentacion-del-problema-1.html"><i class="fa fa-check"></i><b>5</b> Presentacion del problema</a></li>
+<li class="chapter" data-level="6" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>6</b> Literature</a></li>
+<li class="chapter" data-level="7" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>7</b> Introduction</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -167,75 +212,583 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>En esta parte del book realizaremos la importacion del subconjunto de datos y ilustararemos a groso modo el estado en el que se encuentran los datos</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="carga-de-datos.html#cb1-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/jacob0900/EDAMetodos/main/wdbc.csv&quot;</span></span>
 <span id="cb1-2"><a href="carga-de-datos.html#cb1-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-3"><a href="carga-de-datos.html#cb1-3" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="carga-de-datos.html#cb1-4" tabindex="-1"></a><span class="co"># Verificar que cargó correctamente</span></span>
-<span id="cb1-5"><a href="carga-de-datos.html#cb1-5" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code></pre></div>
-<pre><code>##         X0 X1    X2    X3     X4     X5      X6      X7     X8      X9    X10
-## 1   842302  M 17.99 10.38 122.80 1001.0 0.11840 0.27760 0.3001 0.14710 0.2419
-## 2   842517  M 20.57 17.77 132.90 1326.0 0.08474 0.07864 0.0869 0.07017 0.1812
-## 3 84300903  M 19.69 21.25 130.00 1203.0 0.10960 0.15990 0.1974 0.12790 0.2069
-## 4 84348301  M 11.42 20.38  77.58  386.1 0.14250 0.28390 0.2414 0.10520 0.2597
-## 5 84358402  M 20.29 14.34 135.10 1297.0 0.10030 0.13280 0.1980 0.10430 0.1809
-## 6   843786  M 12.45 15.70  82.57  477.1 0.12780 0.17000 0.1578 0.08089 0.2087
-##       X11    X12    X13   X14    X15      X16     X17     X18     X19     X20
-## 1 0.07871 1.0950 0.9053 8.589 153.40 0.006399 0.04904 0.05373 0.01587 0.03003
-## 2 0.05667 0.5435 0.7339 3.398  74.08 0.005225 0.01308 0.01860 0.01340 0.01389
-## 3 0.05999 0.7456 0.7869 4.585  94.03 0.006150 0.04006 0.03832 0.02058 0.02250
-## 4 0.09744 0.4956 1.1560 3.445  27.23 0.009110 0.07458 0.05661 0.01867 0.05963
-## 5 0.05883 0.7572 0.7813 5.438  94.44 0.011490 0.02461 0.05688 0.01885 0.01756
-## 6 0.07613 0.3345 0.8902 2.217  27.19 0.007510 0.03345 0.03672 0.01137 0.02165
-##        X21   X22   X23    X24    X25    X26    X27    X28    X29    X30     X31
-## 1 0.006193 25.38 17.33 184.60 2019.0 0.1622 0.6656 0.7119 0.2654 0.4601 0.11890
-## 2 0.003532 24.99 23.41 158.80 1956.0 0.1238 0.1866 0.2416 0.1860 0.2750 0.08902
-## 3 0.004571 23.57 25.53 152.50 1709.0 0.1444 0.4245 0.4504 0.2430 0.3613 0.08758
-## 4 0.009208 14.91 26.50  98.87  567.7 0.2098 0.8663 0.6869 0.2575 0.6638 0.17300
-## 5 0.005115 22.54 16.67 152.20 1575.0 0.1374 0.2050 0.4000 0.1625 0.2364 0.07678
-## 6 0.005082 15.47 23.75 103.40  741.6 0.1791 0.5249 0.5355 0.1741 0.3985 0.12440</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="carga-de-datos.html#cb3-1" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    569 obs. of  32 variables:
-##  $ X0 : int  842302 842517 84300903 84348301 84358402 843786 844359 84458202 844981 84501001 ...
-##  $ X1 : chr  &quot;M&quot; &quot;M&quot; &quot;M&quot; &quot;M&quot; ...
-##  $ X2 : num  18 20.6 19.7 11.4 20.3 ...
-##  $ X3 : num  10.4 17.8 21.2 20.4 14.3 ...
-##  $ X4 : num  122.8 132.9 130 77.6 135.1 ...
-##  $ X5 : num  1001 1326 1203 386 1297 ...
-##  $ X6 : num  0.1184 0.0847 0.1096 0.1425 0.1003 ...
-##  $ X7 : num  0.2776 0.0786 0.1599 0.2839 0.1328 ...
-##  $ X8 : num  0.3001 0.0869 0.1974 0.2414 0.198 ...
-##  $ X9 : num  0.1471 0.0702 0.1279 0.1052 0.1043 ...
-##  $ X10: num  0.242 0.181 0.207 0.26 0.181 ...
-##  $ X11: num  0.0787 0.0567 0.06 0.0974 0.0588 ...
-##  $ X12: num  1.095 0.543 0.746 0.496 0.757 ...
-##  $ X13: num  0.905 0.734 0.787 1.156 0.781 ...
-##  $ X14: num  8.59 3.4 4.58 3.44 5.44 ...
-##  $ X15: num  153.4 74.1 94 27.2 94.4 ...
-##  $ X16: num  0.0064 0.00522 0.00615 0.00911 0.01149 ...
-##  $ X17: num  0.049 0.0131 0.0401 0.0746 0.0246 ...
-##  $ X18: num  0.0537 0.0186 0.0383 0.0566 0.0569 ...
-##  $ X19: num  0.0159 0.0134 0.0206 0.0187 0.0188 ...
-##  $ X20: num  0.03 0.0139 0.0225 0.0596 0.0176 ...
-##  $ X21: num  0.00619 0.00353 0.00457 0.00921 0.00511 ...
-##  $ X22: num  25.4 25 23.6 14.9 22.5 ...
-##  $ X23: num  17.3 23.4 25.5 26.5 16.7 ...
-##  $ X24: num  184.6 158.8 152.5 98.9 152.2 ...
-##  $ X25: num  2019 1956 1709 568 1575 ...
-##  $ X26: num  0.162 0.124 0.144 0.21 0.137 ...
-##  $ X27: num  0.666 0.187 0.424 0.866 0.205 ...
-##  $ X28: num  0.712 0.242 0.45 0.687 0.4 ...
-##  $ X29: num  0.265 0.186 0.243 0.258 0.163 ...
-##  $ X30: num  0.46 0.275 0.361 0.664 0.236 ...
-##  $ X31: num  0.1189 0.089 0.0876 0.173 0.0768 ...</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="carga-de-datos.html#cb5-1" tabindex="-1"></a><span class="fu">dim</span>(datos)</span></code></pre></div>
-<pre><code>## [1] 569  32</code></pre>
-
+<span id="cb1-3"><a href="carga-de-datos.html#cb1-3" tabindex="-1"></a><span class="fu">ls</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;datos&quot; &quot;url&quot;</code></pre>
+<p>Despues de haber cargado el subconjunto de datos daramenos una organizacion y descripccion de las variables siempre recordando que nuestra piedra anugular de nuestro estudio es la variable “Diagnosis”</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="carga-de-datos.html#cb3-1" tabindex="-1"></a><span class="co"># Cargar librerías necesarias para bookdown</span></span>
+<span id="cb3-2"><a href="carga-de-datos.html#cb3-2" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code></pre></div>
+<pre><code>## Warning: package &#39;knitr&#39; was built under R version 4.4.3</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="carga-de-datos.html#cb5-1" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code></pre></div>
+<pre><code>## Warning: package &#39;kableExtra&#39; was built under R version 4.4.3</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="carga-de-datos.html#cb7-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)<span class="co"># Manipulación de Datos</span></span></code></pre></div>
+<pre><code>## 
+## Adjuntando el paquete: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:kableExtra&#39;:
+## 
+##     group_rows</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="carga-de-datos.html#cb12-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)<span class="co"># Visualización de datos </span></span>
+<span id="cb12-2"><a href="carga-de-datos.html#cb12-2" tabindex="-1"></a><span class="fu">library</span>(readxl)<span class="co"># Importación de datos</span></span>
+<span id="cb12-3"><a href="carga-de-datos.html#cb12-3" tabindex="-1"></a><span class="fu">library</span>(tibble)<span class="co"># Tablas</span></span>
+<span id="cb12-4"><a href="carga-de-datos.html#cb12-4" tabindex="-1"></a><span class="fu">library</span>(readr)<span class="co">#Para cargar base de datos</span></span>
+<span id="cb12-5"><a href="carga-de-datos.html#cb12-5" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="carga-de-datos.html#cb12-6" tabindex="-1"></a><span class="co"># Crear el data frame con la información de las variables</span></span>
+<span id="cb12-7"><a href="carga-de-datos.html#cb12-7" tabindex="-1"></a>tabla_variables <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb12-8"><a href="carga-de-datos.html#cb12-8" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">c</span>(</span>
+<span id="cb12-9"><a href="carga-de-datos.html#cb12-9" tabindex="-1"></a>    <span class="st">&quot;ID&quot;</span>, <span class="st">&quot;Diagnosis&quot;</span>,</span>
+<span id="cb12-10"><a href="carga-de-datos.html#cb12-10" tabindex="-1"></a>    <span class="st">&quot;radius1&quot;</span>, <span class="st">&quot;texture1&quot;</span>, <span class="st">&quot;perimeter1&quot;</span>, <span class="st">&quot;area1&quot;</span>, <span class="st">&quot;smoothness1&quot;</span>, <span class="st">&quot;compactness1&quot;</span>, </span>
+<span id="cb12-11"><a href="carga-de-datos.html#cb12-11" tabindex="-1"></a>    <span class="st">&quot;concavity1&quot;</span>, <span class="st">&quot;concave_points1&quot;</span>, <span class="st">&quot;symmetry1&quot;</span>, <span class="st">&quot;fractal_dimension1&quot;</span>,</span>
+<span id="cb12-12"><a href="carga-de-datos.html#cb12-12" tabindex="-1"></a>    <span class="st">&quot;radius2&quot;</span>, <span class="st">&quot;texture2&quot;</span>, <span class="st">&quot;perimeter2&quot;</span>, <span class="st">&quot;area2&quot;</span>, <span class="st">&quot;smoothness2&quot;</span>, <span class="st">&quot;compactness2&quot;</span>,</span>
+<span id="cb12-13"><a href="carga-de-datos.html#cb12-13" tabindex="-1"></a>    <span class="st">&quot;concavity2&quot;</span>, <span class="st">&quot;concave_points2&quot;</span>, <span class="st">&quot;symmetry2&quot;</span>, <span class="st">&quot;fractal_dimension2&quot;</span>,</span>
+<span id="cb12-14"><a href="carga-de-datos.html#cb12-14" tabindex="-1"></a>    <span class="st">&quot;radius3&quot;</span>, <span class="st">&quot;texture3&quot;</span>, <span class="st">&quot;perimeter3&quot;</span>, <span class="st">&quot;area3&quot;</span>, <span class="st">&quot;smoothness3&quot;</span>, <span class="st">&quot;compactness3&quot;</span>,</span>
+<span id="cb12-15"><a href="carga-de-datos.html#cb12-15" tabindex="-1"></a>    <span class="st">&quot;concavity3&quot;</span>, <span class="st">&quot;concave_points3&quot;</span>, <span class="st">&quot;symmetry3&quot;</span>, <span class="st">&quot;fractal_dimension3&quot;</span></span>
+<span id="cb12-16"><a href="carga-de-datos.html#cb12-16" tabindex="-1"></a>  ),</span>
+<span id="cb12-17"><a href="carga-de-datos.html#cb12-17" tabindex="-1"></a>  <span class="at">Tipo =</span> <span class="fu">c</span>(</span>
+<span id="cb12-18"><a href="carga-de-datos.html#cb12-18" tabindex="-1"></a>    <span class="st">&quot;Categórica nominal&quot;</span>, <span class="st">&quot;Categórica nominal&quot;</span>,</span>
+<span id="cb12-19"><a href="carga-de-datos.html#cb12-19" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="st">&quot;Numérica continua&quot;</span>, <span class="dv">10</span>),</span>
+<span id="cb12-20"><a href="carga-de-datos.html#cb12-20" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="st">&quot;Numérica continua&quot;</span>, <span class="dv">10</span>),</span>
+<span id="cb12-21"><a href="carga-de-datos.html#cb12-21" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="st">&quot;Numérica continua&quot;</span>, <span class="dv">10</span>)</span>
+<span id="cb12-22"><a href="carga-de-datos.html#cb12-22" tabindex="-1"></a>  ),</span>
+<span id="cb12-23"><a href="carga-de-datos.html#cb12-23" tabindex="-1"></a>  Definición <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb12-24"><a href="carga-de-datos.html#cb12-24" tabindex="-1"></a>    <span class="st">&quot;Identificador único de la muestra&quot;</span>,</span>
+<span id="cb12-25"><a href="carga-de-datos.html#cb12-25" tabindex="-1"></a>    <span class="st">&quot;Diagnóstico del tumor: Maligno (M) o Benigno (B)&quot;</span>,</span>
+<span id="cb12-26"><a href="carga-de-datos.html#cb12-26" tabindex="-1"></a>    <span class="st">&quot;Media de distancias desde el centro al perímetro del núcleo celular&quot;</span>,</span>
+<span id="cb12-27"><a href="carga-de-datos.html#cb12-27" tabindex="-1"></a>    <span class="st">&quot;Media de desviación estándar de valores de escala de grises&quot;</span>,</span>
+<span id="cb12-28"><a href="carga-de-datos.html#cb12-28" tabindex="-1"></a>    <span class="st">&quot;Media del perímetro del núcleo celular&quot;</span>,</span>
+<span id="cb12-29"><a href="carga-de-datos.html#cb12-29" tabindex="-1"></a>    <span class="st">&quot;Media del área del núcleo celular&quot;</span>,</span>
+<span id="cb12-30"><a href="carga-de-datos.html#cb12-30" tabindex="-1"></a>    <span class="st">&quot;Media de variación local en longitudes de radio&quot;</span>,</span>
+<span id="cb12-31"><a href="carga-de-datos.html#cb12-31" tabindex="-1"></a>    <span class="st">&quot;Media de compacidad (perímetro²/área - 1.0)&quot;</span>,</span>
+<span id="cb12-32"><a href="carga-de-datos.html#cb12-32" tabindex="-1"></a>    <span class="st">&quot;Media de severidad de porciones cóncavas del contorno&quot;</span>,</span>
+<span id="cb12-33"><a href="carga-de-datos.html#cb12-33" tabindex="-1"></a>    <span class="st">&quot;Media de número de porciones cóncavas del contorno&quot;</span>,</span>
+<span id="cb12-34"><a href="carga-de-datos.html#cb12-34" tabindex="-1"></a>    <span class="st">&quot;Media de simetría del núcleo celular&quot;</span>,</span>
+<span id="cb12-35"><a href="carga-de-datos.html#cb12-35" tabindex="-1"></a>    <span class="st">&quot;Media de dimensión fractal (&#39;aproximación a la costa&#39;)&quot;</span>,</span>
+<span id="cb12-36"><a href="carga-de-datos.html#cb12-36" tabindex="-1"></a>    <span class="st">&quot;Error estándar de distancias desde el centro al perímetro&quot;</span>,</span>
+<span id="cb12-37"><a href="carga-de-datos.html#cb12-37" tabindex="-1"></a>    <span class="st">&quot;Error estándar de desviación estándar de valores de escala de grises&quot;</span>,</span>
+<span id="cb12-38"><a href="carga-de-datos.html#cb12-38" tabindex="-1"></a>    <span class="st">&quot;Error estándar del perímetro del núcleo celular&quot;</span>,</span>
+<span id="cb12-39"><a href="carga-de-datos.html#cb12-39" tabindex="-1"></a>    <span class="st">&quot;Error estándar del área del núcleo celular&quot;</span>,</span>
+<span id="cb12-40"><a href="carga-de-datos.html#cb12-40" tabindex="-1"></a>    <span class="st">&quot;Error estándar de variación local en longitudes de radio&quot;</span>,</span>
+<span id="cb12-41"><a href="carga-de-datos.html#cb12-41" tabindex="-1"></a>    <span class="st">&quot;Error estándar de compacidad (perímetro²/área - 1.0)&quot;</span>,</span>
+<span id="cb12-42"><a href="carga-de-datos.html#cb12-42" tabindex="-1"></a>    <span class="st">&quot;Error estándar de severidad de porciones cóncavas del contorno&quot;</span>,</span>
+<span id="cb12-43"><a href="carga-de-datos.html#cb12-43" tabindex="-1"></a>    <span class="st">&quot;Error estándar de número de porciones cóncavas del contorno&quot;</span>,</span>
+<span id="cb12-44"><a href="carga-de-datos.html#cb12-44" tabindex="-1"></a>    <span class="st">&quot;Error estándar de simetría del núcleo celular&quot;</span>,</span>
+<span id="cb12-45"><a href="carga-de-datos.html#cb12-45" tabindex="-1"></a>    <span class="st">&quot;Error estándar de dimensión fractal (&#39;aproximación a la costa&#39;)&quot;</span>,</span>
+<span id="cb12-46"><a href="carga-de-datos.html#cb12-46" tabindex="-1"></a>    <span class="st">&quot;Mayor valor de distancias desde el centro al perímetro&quot;</span>,</span>
+<span id="cb12-47"><a href="carga-de-datos.html#cb12-47" tabindex="-1"></a>    <span class="st">&quot;Mayor valor de desviación estándar de valores de escala de grises&quot;</span>,</span>
+<span id="cb12-48"><a href="carga-de-datos.html#cb12-48" tabindex="-1"></a>    <span class="st">&quot;Mayor valor del perímetro del núcleo celular&quot;</span>,</span>
+<span id="cb12-49"><a href="carga-de-datos.html#cb12-49" tabindex="-1"></a>    <span class="st">&quot;Mayor valor del área del núcleo celular&quot;</span>,</span>
+<span id="cb12-50"><a href="carga-de-datos.html#cb12-50" tabindex="-1"></a>    <span class="st">&quot;Mayor valor de variación local en longitudes de radio&quot;</span>,</span>
+<span id="cb12-51"><a href="carga-de-datos.html#cb12-51" tabindex="-1"></a>    <span class="st">&quot;Mayor valor de compacidad (perímetro²/área - 1.0)&quot;</span>,</span>
+<span id="cb12-52"><a href="carga-de-datos.html#cb12-52" tabindex="-1"></a>    <span class="st">&quot;Mayor valor de severidad de porciones cóncavas del contorno&quot;</span>,</span>
+<span id="cb12-53"><a href="carga-de-datos.html#cb12-53" tabindex="-1"></a>    <span class="st">&quot;Mayor valor de número de porciones cóncavas del contorno&quot;</span>,</span>
+<span id="cb12-54"><a href="carga-de-datos.html#cb12-54" tabindex="-1"></a>    <span class="st">&quot;Mayor valor de simetría del núcleo celular&quot;</span>,</span>
+<span id="cb12-55"><a href="carga-de-datos.html#cb12-55" tabindex="-1"></a>    <span class="st">&quot;Mayor valor de dimensión fractal (&#39;aproximación a la costa&#39;)&quot;</span></span>
+<span id="cb12-56"><a href="carga-de-datos.html#cb12-56" tabindex="-1"></a>  ),</span>
+<span id="cb12-57"><a href="carga-de-datos.html#cb12-57" tabindex="-1"></a>  <span class="st">`</span><span class="at">Escala de Medición</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb12-58"><a href="carga-de-datos.html#cb12-58" tabindex="-1"></a>    <span class="st">&quot;Nominal&quot;</span>, <span class="st">&quot;Nominal&quot;</span>,</span>
+<span id="cb12-59"><a href="carga-de-datos.html#cb12-59" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="st">&quot;Razón&quot;</span>, <span class="dv">10</span>),</span>
+<span id="cb12-60"><a href="carga-de-datos.html#cb12-60" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="st">&quot;Razón&quot;</span>, <span class="dv">10</span>),</span>
+<span id="cb12-61"><a href="carga-de-datos.html#cb12-61" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="st">&quot;Razón&quot;</span>, <span class="dv">10</span>)</span>
+<span id="cb12-62"><a href="carga-de-datos.html#cb12-62" tabindex="-1"></a>  ),</span>
+<span id="cb12-63"><a href="carga-de-datos.html#cb12-63" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb12-64"><a href="carga-de-datos.html#cb12-64" tabindex="-1"></a>)</span>
+<span id="cb12-65"><a href="carga-de-datos.html#cb12-65" tabindex="-1"></a></span>
+<span id="cb12-66"><a href="carga-de-datos.html#cb12-66" tabindex="-1"></a><span class="co"># Crear tabla formateada para bookdown</span></span>
+<span id="cb12-67"><a href="carga-de-datos.html#cb12-67" tabindex="-1"></a><span class="fu">kable</span>(tabla_variables, </span>
+<span id="cb12-68"><a href="carga-de-datos.html#cb12-68" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Descripción de Variables del Dataset WDBC (Wisconsin Diagnostic Breast Cancer)&quot;</span>,</span>
+<span id="cb12-69"><a href="carga-de-datos.html#cb12-69" tabindex="-1"></a>      <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-70"><a href="carga-de-datos.html#cb12-70" tabindex="-1"></a>      <span class="at">longtable =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-71"><a href="carga-de-datos.html#cb12-71" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>),</span>
+<span id="cb12-72"><a href="carga-de-datos.html#cb12-72" tabindex="-1"></a>                <span class="at">latex_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hold_position&quot;</span>),</span>
+<span id="cb12-73"><a href="carga-de-datos.html#cb12-73" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb12-74"><a href="carga-de-datos.html#cb12-74" tabindex="-1"></a>                <span class="at">font_size =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-75"><a href="carga-de-datos.html#cb12-75" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">width =</span> <span class="st">&quot;2.5cm&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-76"><a href="carga-de-datos.html#cb12-76" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">width =</span> <span class="st">&quot;3cm&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-77"><a href="carga-de-datos.html#cb12-77" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">3</span>, <span class="at">width =</span> <span class="st">&quot;8cm&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-78"><a href="carga-de-datos.html#cb12-78" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">4</span>, <span class="at">width =</span> <span class="st">&quot;2cm&quot;</span>)</span></code></pre></div>
+<table class="table table-striped table-hover table-condensed" style="font-size: 10px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-2">Table 2.1: </span><span id="tab:unnamed-chunk-2">Table 2.2: </span>Descripción de Variables del Dataset WDBC (Wisconsin Diagnostic Breast Cancer)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+Tipo
+</th>
+<th style="text-align:left;">
+Definición
+</th>
+<th style="text-align:left;">
+Escala de Medición
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+ID
+</td>
+<td style="text-align:left;width: 3cm; ">
+Categórica nominal
+</td>
+<td style="text-align:left;width: 8cm; ">
+Identificador único de la muestra
+</td>
+<td style="text-align:left;width: 2cm; ">
+Nominal
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+Diagnosis
+</td>
+<td style="text-align:left;width: 3cm; ">
+Categórica nominal
+</td>
+<td style="text-align:left;width: 8cm; ">
+Diagnóstico del tumor: Maligno (M) o Benigno (B)
+</td>
+<td style="text-align:left;width: 2cm; ">
+Nominal
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+radius1
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Media de distancias desde el centro al perímetro del núcleo celular
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+texture1
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Media de desviación estándar de valores de escala de grises
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+perimeter1
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Media del perímetro del núcleo celular
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+area1
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Media del área del núcleo celular
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+smoothness1
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Media de variación local en longitudes de radio
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+compactness1
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Media de compacidad (perímetro²/área - 1.0)
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+concavity1
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Media de severidad de porciones cóncavas del contorno
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+concave_points1
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Media de número de porciones cóncavas del contorno
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+symmetry1
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Media de simetría del núcleo celular
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+fractal_dimension1
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Media de dimensión fractal (‘aproximación a la costa’)
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+radius2
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Error estándar de distancias desde el centro al perímetro
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+texture2
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Error estándar de desviación estándar de valores de escala de grises
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+perimeter2
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Error estándar del perímetro del núcleo celular
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+area2
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Error estándar del área del núcleo celular
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+smoothness2
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Error estándar de variación local en longitudes de radio
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+compactness2
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Error estándar de compacidad (perímetro²/área - 1.0)
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+concavity2
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Error estándar de severidad de porciones cóncavas del contorno
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+concave_points2
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Error estándar de número de porciones cóncavas del contorno
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+symmetry2
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Error estándar de simetría del núcleo celular
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+fractal_dimension2
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Error estándar de dimensión fractal (‘aproximación a la costa’)
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+radius3
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Mayor valor de distancias desde el centro al perímetro
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+texture3
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Mayor valor de desviación estándar de valores de escala de grises
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+perimeter3
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Mayor valor del perímetro del núcleo celular
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+area3
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Mayor valor del área del núcleo celular
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+smoothness3
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Mayor valor de variación local en longitudes de radio
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+compactness3
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Mayor valor de compacidad (perímetro²/área - 1.0)
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+concavity3
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Mayor valor de severidad de porciones cóncavas del contorno
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+concave_points3
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Mayor valor de número de porciones cóncavas del contorno
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+symmetry3
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Mayor valor de simetría del núcleo celular
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2.5cm; font-weight: bold;">
+fractal_dimension3
+</td>
+<td style="text-align:left;width: 3cm; ">
+Numérica continua
+</td>
+<td style="text-align:left;width: 8cm; ">
+Mayor valor de dimensión fractal (‘aproximación a la costa’)
+</td>
+<td style="text-align:left;width: 2cm; ">
+Razón
+</td>
+</tr>
+</tbody>
+</table>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exploración-inicial.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
