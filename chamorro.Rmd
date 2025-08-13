@@ -106,7 +106,7 @@ numeric_vars <- df %>% select(where(is.numeric))
 ggcorr(numeric_vars, label = TRUE, label_round = 2)
 
 ## Categórica vs. categórica
-# Creamos grupos de radius1 para ejemplo
+# Creamos grupos de radius1 
 table(df$Diagnosis, cut(df$radius1, breaks = 3))
 prop.table(table(df$Diagnosis, cut(df$radius1, breaks = 3)))
 
